@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Biblichor</title>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!-- Add these line for detecting device width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  </head>
+
+  <body>
+<div class="navbar">
+    <div class="nav-header">
+      <div class="nav-title">
+        <%= link_to('HOME', root_path, class: "fg-color") %>  
+      </div>
+    </div>
+
+  <div> 
+    <ul class="text-right">
+    <%if user_signed_in? %>
+    <% current_user[:username] === nil ? user_name = current_user[:name] : user_name = current_user[:username] %>
+      <li class="dropdown">
+            <%# <%=link_to user_name,user_path(current_user), class: "dropdown-toggle fg-color", data-toggle:"dropdown", role:"button", role:"button", aria-expanded:" false"%>
+            <a href="#" class="dropdown-toggle fg-color" data-toggle="dropdown" role="button" aria-expanded="false"><%=user_name%><span class="caret"></span></a>
+            <ul>
+              <%= link_to('<li>profile</li>'.html_safe,user_path(current_user), class: "fg-color")%>
+              <%= link_to('<li>account</li>'.html_safe,edit_user_registration_path(current_user), class: "fg-color")%>
+              <%= link_to('<li>logout</li>'.html_safe, destroy_user_session_path, class: "fg-color", method: :delete)%>
+            </ul>
+      </li>
+      <% else %>
+        <%= link_to('<li>sign in</li>'.html_safe, new_user_session_path, class: "fg-color")%>
+        <%= link_to('<li>sign up</li>'.html_safe, new_user_registration_path, class: "fg-color")%>
+      <% end %>
+      <li><a href="#" class="fg-color">cart(0)</a></li>
+    </ul>
+  </div>
+
+</div>
+    
+    
+            <%# <% if user_signed_in? %
+
+            <%# <% current_user[:username] === nil ? user_name = current_user[:name] : user_name = current_user[:username] %>
+          <%# <li><%= link_to(user_name, user_path(current_user)) %>
+            <%# <ul class="dropdown"> %>
+              <%# <li><%= link_to('account settings', edit_user_path)</li> %>
+              <%# <li><%= link_to('logout', destroy_user_session_path, method: :delete)</li> %>
+            <%# </ul> %>
+          <%# </li> %>
+            <%# link_to "+Add New Book" , new_book_path%>
+
+            <%# <% else %>
+
+          <%# <li><%= link_to('login', new_user_session_path) </li> %>
+          <%# <li><%= link_to('sign up', new_user_session_path)  </li> %>
+            <%#link_to("Sign in with Facebook", user_facebook_omniauth_authorize_path) %>
+
+
+<%# LOGO %>
+<div class="container text-center">
+  <h1> <%= link_to 'Biblichor', root_path, class: "main-color logo"  %>  </h1>
+</div>
+
+<%# ALERT & NOTICE %>
+<%# <p class="notice"><%= notice ></p> %>
+<%# <p class="alert"><%= alert %</p> %>
+
+<%= yield %>
+
+<%# SCRIPT %>
+<%= javascript_pack_tag "application" %>    <!-- from app/javascript/packs/application.js -->
+
+  </body>
+</html>

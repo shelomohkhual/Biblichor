@@ -1,0 +1,99 @@
+// Graphical variables
+@import "config/fonts";
+@import "config/colors";
+@import "config/bootstrap_variables";
+
+// External libraries
+@import "bootstrap/scss/bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+// Your CSS partials
+@import "pages/index";
+
+body {
+    margin: 2% 5%;
+    background-color: #f6f3ef;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.logo {
+    margin: auto;
+}
+.main-color {
+    color: #6e482f;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.fg-color {
+    color: #6b6a69;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.stars-color {
+    color: #f78e37 ;
+}
+
+// NAVBAR
+
+.nav {
+height: 50px;
+width: 100%;
+position: relative;
+}
+
+.nav > .nav-header {
+display: inline;
+}
+a {
+  text-decoration: none;
+  color: #6e482f;
+}
+
+nav {
+    // font-family: monospace;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+li {
+    display: block;
+    float: left;
+    padding: 5px;
+    position: relative;
+    text-decoration: none;
+  transition-duration: 0.5s;
+}
+  
+li a {
+
+}
+
+li:hover {
+    cursor: pointer;
+}
+
+ul li ul {
+    text-align: right;
+    visibility: hidden;
+  opacity: 0;
+  min-width: 5rem;
+    position: absolute;
+  transition: all 0.5s ease;
+//   margin-top: 1rem;
+    right: 0;
+  display: none;
+}
+
+ul li:hover > ul,
+ul li ul:hover {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+}
+
+ul li ul li {
+clear: both;
+  width: 100%;
+}

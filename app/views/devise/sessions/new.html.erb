@@ -1,0 +1,44 @@
+<%# SIGN-FORM %>
+<div class="container text-center">
+  <h4 class="main-color">sign-in</h4>
+  <div class="container text-left sign-form">
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="form-inputs">
+  <%= f.input :username,
+                required: false,
+                autofocus: true,
+                input_html: { autocomplete: "username" } %>
+    <%= f.input :email,
+                required: false,
+                autofocus: true,
+                input_html: { autocomplete: "email" } %>
+    <%= f.input :password,
+                required: false,
+                input_html: { autocomplete: "current-password" } %>
+    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+  </div>
+
+  <%# SHARED-LINK %>
+  <div class="container text-center shared-link">
+    <%= render "users/shared/links" %>
+  </div>
+
+  <div class="form-actions text-center">
+    <%= f.button :submit, "Log in" %>
+  </div>
+  <br>
+  <div class="container text-center fg-color">
+    <h6>- OR -</h6>
+  </div>
+  
+  <%# SIGN-IN WITH %>
+  <div class="text-center social-btn">
+        <a href="/users/auth/facebook" class="btn btn-block"><i class="fa fa-facebook"></i> Sign in with <b>Facebook</b></a>
+        <a href="/users/auth/twitter" class="btn btn-block"><i class="fa fa-twitter"></i> Sign in with <b>Twitter</b></a>
+        <a href="/users/auth/google" class="btn btn-block"><i class="fa fa-google"></i> Sign in with <b>Google</b></a>
+  </div>
+
+   <% end %>
+  </div>
+  
+</div>
