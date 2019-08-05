@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- SQL XML created by WWW SQL Designer, https://github.com/ondras/wwwsqldesigner/ -->
+<!-- Active URL: https://ondras.zarovi.cz/sql/demo/?keyword=default -->
+<sql>
+<datatypes db="mysql">
+		<group color="rgb(238,238,170)" label="Integer">
+			<type label="TinyInt" quote="" sql="tinyint" length="0" re="INT" note="Integer data: 0 to 255" bytes="1"/>
+			<type label="SmallInt" quote="" sql="smallint" length="0" re="INT" note="Integer data: -32,768 to 32,767" bytes="2"/>
+			<type label="Int" quote="" sql="int" length="0" re="INT" note="Integer data: -2,147,483,648 to 2,147,483,647" bytes="4"/>
+			<type label="BigInt" quote="" sql="bigint" length="0" re="INT" note="Integer data: -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807" bytes="8"/>
+		</group>
+
+		<group color="rgb(238,238,170)" label="Monetary">
+			<type label="Money" quote="" sql="money" length="0" re="FLOAT" note="Integer data: -922,337,203,685,477.5808 to 922,337,203,685,477.5807" bytes="8"/>
+			<type label="SmallMoney" quote="" sql="smallmoney" length="0" re="FLOAT" note="-214,748.3648 to 214,748.3647" bytes="4"/>
+		</group>
+
+		<group color="rgb(238,238,170)" label="Numeric">
+			<type label="Real" quote="" sql="real" length="0" re="FLOAT" note="Floating precision number data: -3.402823E+38 to 3.402823E+38" bytes="4"/>
+			<type label="Float" quote="" sql="float" length="0" re="FLOAT" note="Floating precision number data: -4.94E+324 to 4.94E+324" bytes="8"/>
+			<type label="Decimal" quote="" sql="decimal" length="1" re="DEC" note="Fixed precision and scale numeric data: -10^38 +1 to 10^38 -1 (decimal and numeric are synonyms)" bytes="n*"/>
+			<type label="Numeric" quote="" sql="numeric" length="1" re="DEC" note="Fixed precision and scale numeric data: -10^38 +1 to 10^38 -1 (decimal and numeric are synonyms)" bytes="n*"/>
+		</group>
+
+		<group color="rgb(255,200,200)" label="Character">
+			<type label="Char" quote="'" sql="char" length="0" note="Fixed-length character data with a maximum length of 8,000 characters" bytes="n"/>
+			<type label="Varchar" quote="'" sql="varchar" length="1" note="Variable-length data with a maximum of 8,000 characters" bytes="m &lt;= n"/>
+			<type label="Text" quote="'" sql="text" length="1" note="Variable-length data with a maximum length of 2,147,483,647 characters" bytes="&lt;= 2,147,483,647"/>
+			<type label="XML" quote="'" sql="xml" length="0" note="XML" bytes="n"/>
+		</group>
+
+		<group color="rgb(255,200,200)" label="Unicode Character">
+			<type label="nChar" quote="'" sql="nchar" length="0" note="Fixed-length Unicode data with a maximum length of 4,000 characters" bytes="n"/>
+			<type label="nVarchar" quote="'" sql="nvarchar" length="1" note="Variable-length Unicode data with a maximum length of 4,000 characters" bytes="m &lt;= n"/>
+			<type label="nText" quote="'" sql="ntext" length="1" note="Variable-length Unicode data with a maximum length of 1,073,741,823 characters" bytes="&lt;= 2,147,483,647"/>
+		</group>
+
+
+		<group color="rgb(200,255,200)" label="Date &amp; Time">
+			<type label="Datetime" quote="" sql="datetime" length="0" note="Jan 1, 1753 to Dec 31, 9999" bytes="8"/>
+			<type label="SmallDateTime" quote="" sql="smalldatetime" length="0" note="Jan 1, 1900 to Dec 31, 2079" bytes="4"/>
+		</group>
+
+		<group color="rgb(200,200,255)" label="Binary">
+			<type label="Binary" quote="'" sql="binary" length="0" note="Fixed-length binary data with a maximum length of 8,000 bytes" bytes="n"/>
+			<type label="Varbinary" quote="'" sql="varbinary" length="1" note="Variable-length binary data with a maximum length of 8,000 bytes" bytes="m &lt;= n"/>
+		</group>
+
+		<group color="rgb(200,220,255)" label="Miscellaneous">
+			<type label="Bit" quote="" sql="bit" length="0" note="Boolean: 1 or 0" bytes="1"/>
+			<type label="Image" quote="" sql="image" length="1" re="BLOB" note="Variable-length binary data with a maximum length of 2,147,483,647 bytes" bytes="0 to 2,147,483,647"/>
+			<type label="Timestamp" quote="" sql="timestamp" length="0" note="Locally unique binary number updated as a row gets updated" bytes="8"/>
+			<type label="SQL Variant" quote="" sql="sql_variant" length="1" note="Stores any datatype except text, ntext, image, timestamp" bytes=""/>
+			<type label="Uniqueidentifier" quote="" sql="uniqueidentifier" length="1" note="GUID" bytes="16"/>
+		</group>
+	</datatypes><table x="234" y="308" name="Users">
+<row name="id" null="1" autoincrement="1">
+<datatype>tinyint</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="487" y="169" name="Renting">
+<row name="id" null="1" autoincrement="1">
+<datatype>tinyint</datatype>
+<default>NULL</default></row>
+<row name="book_id" null="1" autoincrement="0">
+<datatype>tinyint</datatype>
+<default>NULL</default><relation table="Books" row="id" />
+</row>
+<row name="Renter_id" null="1" autoincrement="0">
+<datatype>tinyint</datatype>
+<default>NULL</default><relation table="Users" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="806" y="287" name="Books">
+<row name="id" null="1" autoincrement="1">
+<datatype>tinyint</datatype>
+<default>NULL</default></row>
+<row name="owner_id" null="1" autoincrement="0">
+<datatype>tinyint</datatype>
+<default>NULL</default><relation table="Users" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="486" y="408" name="ratings">
+<row name="id" null="1" autoincrement="1">
+<datatype>tinyint</datatype>
+<default>NULL</default></row>
+<row name="rater_id" null="1" autoincrement="0">
+<datatype>tinyint</datatype>
+<default>NULL</default><relation table="Users" row="id" />
+</row>
+<row name="book_id" null="1" autoincrement="0">
+<datatype>tinyint</datatype>
+<default>NULL</default><relation table="Books" row="id" />
+</row>
+<row name="user_id" null="1" autoincrement="0">
+<datatype>tinyint</datatype>
+<default>NULL</default><relation table="Users" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+</sql>
