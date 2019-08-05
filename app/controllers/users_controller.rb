@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
     def index
-        @books = Book.all
+        Book.all.empty? ? nil : @books = Book.all
     end
 end

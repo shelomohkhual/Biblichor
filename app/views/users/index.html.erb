@@ -16,98 +16,85 @@
 <br>
 <%# link_to('View Book', books_path) %>
 
-<div class="container text-center">
-<% if @book == nil %>
-    <div class="container fg-color">
-        <h4> There's no books yet!</h4>
-    </div>
-<% else %>
-    <% @books.each do |book| %>
-        <div class="container">
-            <%= image_tag(url_for(book.cover), :size => "80x120") if book.cover.attached?  %>
-            <%= link_to('<h4>#{book.title}</h4>'.html_safe, book_path(book), class: "title main-color") %>
-            <%= link_to('<h6>#{book.author}</h6>'.html_safe, book_path(book), class: "author main-color") %>
-            <%= link_to('<p>#{book.genre}</p>'.html_safe, book_path(book), class: "author main-color") %>
-            <div class="container">
-                <%= link_to('<h6>#{book.price}</h6>'.html_safe, book_path(book), class: "author main-color") %>
+<div class="container"  style="width:90%;">
+    <% if @books == nil %>
+        <div class="container text-center">
+            <h4 class="fg-color"> There's no books yet!</h4>
+        </div>
+    <% else %>
+    <div>
+    <h4 class="main-color font-italic">Romance</h4> <%#FOR GENRE%>
+</div>
+
+<div class="row">
+<% 4.times do  %>
+    <div class="container col-md-3 col-sm-6 shadow-md">
+        <div class="product-grid6">
+            <div class="product-image6">
+                <a href="#">
+                    <%= image_tag @books[0].front_cover %>
+                </a>
+            </div>
+            <div class="product-content text-center">
+                 <div>
+                    <h6><strong><%= "One Of Similair Book"%></strong></h6> <%# TITLE %>
+                    <p class="font-italic author">Guess Who<br><%# AUTHOR %>
+                    <%# STARS %>
+                    <span class="fa fa-star star"></span>
+                    <span class="fa fa-star star"></span>
+                    <span class="fa fa-star star"></span>
+                    <span class="fa fa-star star"></span>
+                    <span class="fa fa-star"></span>
+                    </p>
+                </div>
+                <div>
+                    <%= link_to "<span>RM 10.00</span>".html_safe,book_path(@books[0]), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                </div>
             </div>
         </div>
-    <% end %>
+    </div>
 <% end %>
+
 </div>
 
-
-<div class="container"  style="width:90%;">
-    <div>
-        <h4 class="main-color font-italic">Romance</h4> <%#FOR GENRE%>
-    </div>
-    <div class="row">
-
-    <% 4.times do  %>
-        <div class="container col-md-3 col-sm-6 shadow-md">
-            <div class="product-grid6">
-                <div class="product-image6">
-                    <a href="<%=book_path(@books[0])%>">
-                        <%= image_tag @books[0].front_cover %>
-                    </a>
-                </div>
-                <div class="product-content text-center">
-                     <div>
-                        <h6><strong><%= "One Of Similair Book"%></strong></h6> <%# TITLE %>
-                        <p class="font-italic author">Guess Who<br><%# AUTHOR %>
-                        <%# STARS %>
-                        <span class="fa fa-star star"></span>
-                        <span class="fa fa-star star"></span>
-                        <span class="fa fa-star star"></span>
-                        <span class="fa fa-star star"></span>
-                        <span class="fa fa-star"></span>
-                        </p>
-                    </div>
-                    <div>
-                        <%= link_to "<span>RM 10.00</span>".html_safe,book_path(@books[0]), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <% end %>
-
-    </div>
-</div>
 <hr>
-<div class="container"  style="width:90%;">
-    <div>
-        <h4 class="main-color font-italic">Romance</h4> <%#FOR GENRE%>
-    </div>
-    <div class="row">
 
-    <% 4.times do  %>
-        <div class="container col-md-3 col-sm-6 shadow-md">
-            <div class="product-grid6">
-                <div class="product-image6">
-                    <a href="<%=book_path(@books[0])%>">
-                        <%= image_tag @books[0].front_cover %>
-                    </a>
+<div>
+    <h4 class="main-color font-italic">Romance</h4> <%#FOR GENRE%>
+</div>
+
+<div class="row">
+
+<% 4.times do  %>
+    <div class="container col-md-3 col-sm-6 shadow-md">
+        <div class="product-grid6">
+            <div class="product-image6">
+                <a href="<%=book_path(@books[0])%>">
+                    <%= image_tag @books[0].front_cover %>
+                </a>
+            </div>
+            <div class="product-content text-center">
+                 <div>
+                    <h6><strong><%= "One Of Similair Book"%></strong></h6> <%# TITLE %>
+                    <p class="font-italic author">Guess Who<br><%# AUTHOR %>
+                    <%# STARS %>
+                    <span class="fa fa-star star"></span>
+                    <span class="fa fa-star star"></span>
+                    <span class="fa fa-star star"></span>
+                    <span class="fa fa-star star"></span>
+                    <span class="fa fa-star"></span>
+                    </p>
                 </div>
-                <div class="product-content text-center">
-                     <div>
-                        <h6><strong><%= "One Of Similair Book"%></strong></h6> <%# TITLE %>
-                        <p class="font-italic author">Guess Who<br><%# AUTHOR %>
-                        <%# STARS %>
-                        <span class="fa fa-star star"></span>
-                        <span class="fa fa-star star"></span>
-                        <span class="fa fa-star star"></span>
-                        <span class="fa fa-star star"></span>
-                        <span class="fa fa-star"></span>
-                        </p>
-                    </div>
-                    <div>
-                        <%= link_to "<span>RM 10.00</span>".html_safe,book_path(@books[0]), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
-                    </div>
+                <div>
+                    <%= link_to "<span>RM 10.00</span>".html_safe,book_path(@books[0]), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
                 </div>
             </div>
         </div>
-    <% end %>
-
     </div>
+<% end %>
+
 </div>
 
+
+    <% end %>
+</div>

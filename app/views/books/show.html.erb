@@ -32,11 +32,15 @@
         <div class="row"> <%# BOOK DETAILS%>
           <div class="col-4 shadow-md"><%# BOOK FRONT_COVER%>
               <%# image_tag "book-mockup.png", style: "width:200px; height:300px; position:absolute;", class:"shadow-md"%> <%#  MOCKUP IMAGE %>
-              <%= image_tag @book.front_cover, style: "width:100%;"%> <%#  FRONT_COVER IMAGE %>
+              <% if @book.front_cover == nil %>
+                <%= image_tag "book-mockup.png", style: "width:100%;"%> <%#  DEFAULT IMAGE %>
+              <% else  %>
+                <%= image_tag @book.front_cover, style: "width:100%;"%> <%#  FRONT_COVER IMAGE %>
+              <% end %>
           </div>
           <div class="col-8"><%# BOOK DETAILS%>
-            <div class="">
-                  <div class="">
+            <div>
+                  <div>
                     <strong><%= "One Of Similair Book"%></strong><br> <%# TITLE %>
                     <%= link_to "Guess Who",user_path, class:"author" %> <%# AUTHOR %>
                     <%# STARS %>
