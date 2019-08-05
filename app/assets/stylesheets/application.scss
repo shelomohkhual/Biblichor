@@ -12,14 +12,15 @@
 @import "pages/index";
 
 body {
-    margin: 2% 5%;
+    width:80%;
+    margin: auto;
     background-color: #f6f3ef;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .logo {
     margin: auto;
 }
-.main-color {
+.main-color, strong {
     color: #6e482f;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
@@ -27,8 +28,14 @@ body {
     color: #6b6a69;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
-.stars-color {
+.star {
     color: #f78e37 ;
+}
+
+.author{
+    color: #6e482f;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: italic;
 }
 
 // NAVBAR
@@ -96,4 +103,15 @@ ul li ul:hover {
 ul li ul li {
 clear: both;
   width: 100%;
+}
+
+.btn-price {
+    // width: 50%;
+    color: #f6f3ef;
+    background-color: #6e482f;
+}
+.btn-price:hover span {display:none}
+.btn-price:hover:after {
+  content:"RENT?";
+  color: #f6f3ef;
 }

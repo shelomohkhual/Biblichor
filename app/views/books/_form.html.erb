@@ -1,22 +1,22 @@
-
 <%= simple_form_for(@book) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
+  <div class="form-inputs ">
     <%= f.input :title %>
     <%= f.input :author %>
     <%= f.input :published_date %>
     <%= f.input :description %>
     <%= f.input :genre %>
-    <%= f.input :front_cover %>
-    <%= f.input :back_cover %>
-    <%= f.input :features %>
-    <%= f.input :renting %>
-    <%= f.input :owner_id %>
+    <%= f.label :front_cover %>
+    <%= f.file_field :front_cover %>
+    <%= f.label :back_cover %>
+    <%= f.file_field :back_cover %>
+    <%= f.label :features %>
+    <%= f.file_field :features, multiple: true %>
   </div>
-
-  <div class="form-actions">
+  <br>
+  <div class="form-actions text-center">
     <%= f.button :submit %>
   </div>
 <% end %>

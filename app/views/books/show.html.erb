@@ -1,54 +1,176 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+  <div class="col-sm-1">
+  </div>
+    <%##############################################  %>
+    <%# REVIEW-Books  %>
+    <div class="col-md-8">
 
-<p>
-  <strong>Title:</strong>
-  <%= @book.title %>
-</p>
+    <div class="navbar">
+        <div class="nav-header">
+            <%= link_to('< Back', :back, class: "fg-color") %>  
+        </div>
+        <div class="text-right fg-color"> 
+          <% if user_signed_in? %>
+            <% if current_user.id == @book.owner_id %>
+              <i class="far fa-edit"></i>
+              <%= link_to 'Edit', edit_book_path(@book), class:"fg-color" %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
 
-<p>
-  <strong>Author:</strong>
-  <%= @book.author %>
-</p>
+      <div class="container">
 
-<p>
-  <strong>Published date:</strong>
-  <%= @book.published_date %>
-</p>
+      
 
-<p>
-  <strong>Description:</strong>
-  <%= @book.description %>
-</p>
+        <p> <%# OWNER NAME  %>
+          <strong>Owner:</strong>
+          <% @owner.username == nil ? owner_name = @owner.name : owner_name = @owner.username%>
+          <%= link_to(owner_name,user_path(@owner).html_safe)  %>
+        </p>
+        <div class="row"> <%# BOOK DETAILS%>
+          <div class="col-4 shadow-md"><%# BOOK FRONT_COVER%>
+              <%# image_tag "book-mockup.png", style: "width:200px; height:300px; position:absolute;", class:"shadow-md"%> <%#  MOCKUP IMAGE %>
+              <%= image_tag @book.front_cover, style: "width:100%;"%> <%#  FRONT_COVER IMAGE %>
+          </div>
+          <div class="col-8"><%# BOOK DETAILS%>
+            <div class="">
+                  <div class="">
+                    <strong><%= "One Of Similair Book"%></strong><br> <%# TITLE %>
+                    <%= link_to "Guess Who",user_path, class:"author" %> <%# AUTHOR %>
+                    <%# STARS %>
+                    <div class="">
+                      <span class="fa fa-star star"></span>
+                      <span class="fa fa-star star"></span>
+                      <span class="fa fa-star star"></span>
+                      <span class="fa fa-star star"></span>
+                      <span class="fa fa-star"></span>
+                    </div>
+                  </div>
+                </div>
+                <p class="fg-color font-italic">
+                  <%= @book.description %>
+                </p>
+                <div>
+                  <%= link_to "<span>RM 10.00</span>".html_safe,user_path, class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+              </div>
+          </div>
+        </div>
+      </div>
+      
+      <br>
+      <hr>
+      
+      <div class="container"><%# RAING SECTION %>
+				<div class="review-block">
 
-<p>
-  <strong>Genre:</strong>
-  <%= @book.genre %>
-</p>
+					<div class="row"> <%# ONE OF COMMENT%>
+						<div class="col-sm-3 text-right">
+							<img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+							<div class="review-block-name"><a href="#">nktailor</a></div>
+							<div class="review-block-date">January 29, 2016<br/>1 day ago</div>
+						</div>
+						<div class="col-sm-9">
+							<div class="review-block-rate">
+								 <%# STARS %>
+                  <span class="fa fa-star star"></span>
+                  <span class="fa fa-star star"></span>
+                  <span class="fa fa-star star"></span>
+                  <span class="fa fa-star star"></span>
+                  <span class="fa fa-star"></span>
+							</div>
+							 <div class="review-block-description"> <%# COMMENTS %>
+                    Jojo Moyes’ tearjerker novel by the same name tells the touching love story of two unlikely people who make the emotional journey from being strangers to soulmates.
+                </div>
+						</div>
+					</div>
+          <hr/><%# END ONE OF COMMENT%>
 
-<p>
-  <strong>Front cover:</strong>
-  <%= @book.front_cover %>
-</p>
+          <div class="row"> <%# ONE OF COMMENT%>
+						<div class="col-sm-3 text-right">
+							<img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+							<div class="review-block-name"><a href="#">nktailor</a></div>
+							<div class="review-block-date">January 29, 2016<br/>1 day ago</div>
+						</div>
+						<div class="col-sm-9">
+							<div class="review-block-rate">
+								 <%# STARS %>
+                  <span class="fa fa-star star"></span>
+                  <span class="fa fa-star star"></span>
+                  <span class="fa fa-star star"></span>
+                  <span class="fa fa-star star"></span>
+                  <span class="fa fa-star"></span>
+							</div>
+							 <div class="review-block-description"> <%# COMMENTS %>
+                    Jojo Moyes’ tearjerker novel by the same name tells the touching love story of two unlikely people who make the emotional journey from being strangers to soulmates.
+                </div>
+						</div>
+					</div>
+          <hr/><%# END ONE OF COMMENT%>
+          
+      </div>
+     </div><%# RAING SECTION %>
 
-<p>
-  <strong>Back cover:</strong>
-  <%= @book.back_cover %>
-</p>
+    </div> <%# END OF REVIEW-BOOK%>
+    
+    <%##############################################  %>
+    <%# Similiar-Books  %>
+      <div class="col-3 d-md-none d-lg-block">
+        <div class="container">
 
-<p>
-  <strong>Features:</strong>
-  <%= @book.features %>
-</p>
+            <div class="container text-center">
+              <h4 class="main-color">Similiar Books</h4>
+              <hr>
+            </div>
 
-<p>
-  <strong>Renting:</strong>
-  <%= @book.renting %>
-</p>
+            <%# ONE OF SIMILAIR BOOK %>
+            <div class="container text-center">
+              <%# image_tag @book.front_cover,size: "80x120"%> <%#  FRONT_COVER IMAGE %>
+              <%= image_tag "book-mockup.png", style: "width:80%;"%> <%#  MOCKUP IMAGE %>
+              <div>
+                <strong><%= "One Of Similair Book"%></strong> <%# TITLE %>
+                <div>
+                <%= link_to "Guess Who",user_path, class:"author" %> <%# AUTHOR %>
+                </div>
+                <%# STARS %>
+                <span class="fa fa-star star"></span>
+                <span class="fa fa-star star"></span>
+                <span class="fa fa-star star"></span>
+                <span class="fa fa-star star"></span>
+                <span class="fa fa-star"></span>
+              </div>
+              <div>
+                <%= link_to "<span>RM 10.00</span>".html_safe,user_path, class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+              </div>
+            </div>
+            <br>
+            <%# ONE OF SIMILAIR BOOK %>
+            <div class="container text-center">
+              <%# image_tag @book.front_cover,size: "80x120"%> <%#  FRONT_COVER IMAGE %>
+              <%= image_tag "book-mockup.png", style: "width:80%;"%> <%#  MOCKUP IMAGE %>
+              <div>
+                <strong><%= "One Of Similair Book"%></strong> <%# TITLE %>
+                <div>
+                <%= link_to "Guess Who",user_path, class:"author" %> <%# AUTHOR %>
+                </div>
+                <%# STARS %>
+                <span class="fa fa-star star"></span>
+                <span class="fa fa-star star"></span>
+                <span class="fa fa-star star"></span>
+                <span class="fa fa-star star"></span>
+                <span class="fa fa-star"></span>
+              </div>
+              <div>
+                <%= link_to "<span>RM 10.00</span>".html_safe,user_path, class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+              </div>
+            </div><%# END OF ONE OF SIMILAIR BOOK %>
+            
+        </div>
+      </div>
 
-<p>
-  <strong>Owner:</strong>
-  <%= @book.owner_id %>
-</p>
+    <div class="col-sm-1">
+   </div>
 
-<%= link_to 'Edit', edit_book_path(@book) %> |
-<%= link_to 'Back', books_path %>
+  </div>
+</div>
