@@ -16,6 +16,22 @@
   </head>
 
   <body>
+
+  <%# ALERT & NOTICE %>
+  <% if notice != nil || alert != nil %>
+    <% if notice != nil %>  
+      <div class="notification form-actions text-center alert alert-success" role="alert">
+        <button type="button" class="notice close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong><%= notice %></strong>
+      </div>
+    <% else %>
+      <div class="notification text-center alert alert-alert" role="alert">
+        <button type="button" class="alert close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong><%= alert %></strong>
+      </div>
+    <% end %>
+  <% end %>
+
 <div class="navbar">
     <div class="nav-header">
       <div class="nav-title">
@@ -71,9 +87,7 @@
   <h1> <%= link_to 'Biblichor', root_path, class: "main-color logo"  %>  </h1>
 </div>
 
-<%# ALERT & NOTICE %>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+
 
 <%= yield %>
 

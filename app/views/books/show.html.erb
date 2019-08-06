@@ -26,8 +26,12 @@
 
         <p> <%# OWNER NAME  %>
           <strong>Owner:</strong>
-          <% owner_name = @owner.username || owner_name = @owner.username%>
-          <%= link_to(owner_name,user_path(@owner).html_safe)  %>
+          <% if @owner.username != nil && @owner.username != nil %>
+            <% owner_name = @owner.username || owner_name = @owner.name%>
+            <%= link_to(owner_name,user_path(@owner).html_safe) %>
+          <% else %>
+            YouKnowWho
+          <% end %>
         </p>
         <div class="row"> <%# BOOK DETAILS%>
           <div class="col-4 shadow-md"><%# BOOK FRONT_COVER%>

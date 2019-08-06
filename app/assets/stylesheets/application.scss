@@ -115,3 +115,16 @@ clear: both;
   content:"RENT?";
   color: #f6f3ef;
 }
+
+.notification {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.alert-success{
+  border: 1px solid#6e482f;
+}
+
+.alert-alert{
+  border: 1px solid #b30000;
+}

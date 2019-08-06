@@ -5,11 +5,11 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.smtp_settings = {
-  address:              'smtp.gmail.com',
+  address:              'smtp.mailgun.org',
   port:                 587,
   domain:               'www.biblichor.site',
-  user_name:            Rails.application.credentials.dig(:email, :gmail_address),
-  password:             Rails.application.credentials.dig(:email, :gmail_password),
+  user_name:            Rails.application.credentials.dig(:mailgun, :username),
+  password:             Rails.application.credentials.dig(:mailgun, :password),
   authentication:       'plain',
   enable_starttls_auto: true
   }
