@@ -26,6 +26,7 @@
   <div> 
     <ul class="text-right">
     <%if user_signed_in? %>
+    <%= link_to('<li>+add-new-book</li>'.html_safe, new_book_path, class: "fg-color") %>
     <% current_user[:username] === nil ? user_name = current_user[:name] : user_name = current_user[:username] %>
       <li class="dropdown">
             <%# <%=link_to user_name,user_path(current_user), class: "dropdown-toggle fg-color", data-toggle:"dropdown", role:"button", role:"button", aria-expanded:" false"%>
@@ -71,8 +72,8 @@
 </div>
 
 <%# ALERT & NOTICE %>
-<%# <p class="notice"><%= notice ></p> %>
-<%# <p class="alert"><%= alert %</p> %>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
 
 <%= yield %>
 

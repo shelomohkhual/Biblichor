@@ -85,6 +85,10 @@
 <datatype>tinyint</datatype>
 <default>NULL</default><relation table="Users" row="id" />
 </row>
+<row name="genre_id" null="1" autoincrement="0">
+<datatype>tinyint</datatype>
+<default>NULL</default><relation table="Genre" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -105,6 +109,17 @@
 <datatype>tinyint</datatype>
 <default>NULL</default><relation table="Users" row="id" />
 </row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1015" y="275" name="Genre">
+<row name="id" null="1" autoincrement="1">
+<datatype>tinyint</datatype>
+<default>NULL</default></row>
+<row name="name" null="1" autoincrement="0">
+<datatype>nchar</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
