@@ -26,11 +26,11 @@
 
         <p> <%# OWNER NAME  %>
           <strong>Owner:</strong>
-          <% if @owner.username != nil && @owner.username != nil %>
+          <% if @owner.username == nil && @owner.name == nil %>
+            YouKnowWho
+          <% else %>
             <% owner_name = @owner.username || owner_name = @owner.name%>
             <%= link_to(owner_name,user_path(@owner).html_safe) %>
-          <% else %>
-            YouKnowWho
           <% end %>
         </p>
         <div class="row"> <%# BOOK DETAILS%>

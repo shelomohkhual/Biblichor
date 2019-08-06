@@ -119,12 +119,18 @@ clear: both;
 .notification {
   position: absolute;
   top: 0;
-  width: 100%;
+  right: 0;
+  left: 0;
+  width: auto;
 }
-.alert-success{
-  border: 1px solid#6e482f;
+.alert-success strong{
+  color: #6e482f;
 }
 
-.alert-alert{
-  border: 1px solid #b30000;
+.alert-alert strong{
+  color:#b91919;
+}
+
+.danger {
+  color: #b91919;
 }

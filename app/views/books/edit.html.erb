@@ -24,9 +24,10 @@
   
      <%= render 'form', book: @book %>
      </div>
+     <%= link_to 'remove this book', @book, method: :delete, data: { confirm: "removing #{@book.title} from your bookshelf?" }, class:"danger"%>
 </div>
 <div class="col-sm-1">
   </div>
-
+    
     </div>
 </div>

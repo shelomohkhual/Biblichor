@@ -10,8 +10,10 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+   
     book= Book.find_by(id: params[:id])
     @owner = User.find_by(id: book.owner_id )
+
   end
 
   # GET /books/new
@@ -66,11 +68,25 @@ class BooksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
-      @book = Book.find(params[:id])
+      if Book.exists?(params[:id])
+        @book = Book.find(params[:id])
+      else
+        redirect_to "/books", alert: "there's no SUCH book"
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
       params.require(:book).permit(:title, :author, :published_date, :description, :genre, :front_cover, :back_cover, :features)
     end
+
+    # def book_exist?(id)
+    #   # byebug
+    #   if !Book.exists?(id)
+    #     # render :root_path
+    #     redirect_to books_path
+
+    #     byebug
+    #   end
+    # end
 end
