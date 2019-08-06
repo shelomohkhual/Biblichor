@@ -29,7 +29,11 @@
           <% if @owner.username == nil && @owner.name == nil %>
             YouKnowWho
           <% else %>
-            <% owner_name = @owner.username || owner_name = @owner.name%>
+            <% if @owner.username == nil%>
+              <%owner_name = @owner.name%>
+            <% else %>
+             <%owner_name = @owner.username%> 
+            <% end %>
             <%= link_to(owner_name,user_path(@owner).html_safe) %>
           <% end %>
         </p>
