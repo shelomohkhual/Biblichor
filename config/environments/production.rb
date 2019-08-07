@@ -4,6 +4,10 @@ Rails.application.configure do
   # Gmail configuration
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_key: Rails.application.credentials.dig(:mailgun, :mailgun_api),
+    domain: sandboxad96304003414d2abaca150285e47bb4.mailgun.org,
+  }
   config.action_mailer.smtp_settings = {
   address:              'smtp.mailgun.org',
   port:                 587,
