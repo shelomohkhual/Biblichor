@@ -67,3 +67,7 @@ gem 'omniauth-facebook'
 gem 'mini_magick'
 
 gem 'mailgun-ruby'
+
+gem 'sidekiq'
+
+gem 'devise-async'
