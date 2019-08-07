@@ -45,7 +45,6 @@
     
     <%= link_to('<li>+add-new-book</li>'.html_safe, new_book_path, class: "fg-color") %>
     <% current_user[:username] === nil ? user_name = current_user[:name] : user_name = current_user[:username] %>
-    <% TestJob.perform_now(user_name) %>
       <li class="dropdown">
             <%# <%=link_to user_name,user_path(current_user), class: "dropdown-toggle fg-color", data-toggle:"dropdown", role:"button", role:"button", aria-expanded:" false"%>
             <a href="#" class="dropdown-toggle fg-color" data-toggle="dropdown" role="button" aria-expanded="false"><%=user_name%><span class="caret"></span></a>
