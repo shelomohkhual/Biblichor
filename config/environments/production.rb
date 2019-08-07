@@ -6,17 +6,17 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
     api_key: Rails.application.credentials.dig(:mailgun, :mailgun_api),
-    domain: "sandboxad96304003414d2abaca150285e47bb4.mailgun.org",
+    domain: "biblichor.site",
   }
-  config.action_mailer.smtp_settings = {
-  address:              'smtp.mailgun.org',
-  port:                 587,
-  domain:               'www.biblichor.site',
-  user_name:            Rails.application.credentials.dig(:mailgun, :username),
-  password:             Rails.application.credentials.dig(:mailgun, :password),
-  authentication:       'plain',
-  enable_starttls_auto: true
-  }
+  # config.action_mailer.smtp_settings = {
+  # address:              'smtp.mailgun.org',
+  # port:                 587,
+  # domain:               'www.biblichor.site',
+  # user_name:            Rails.application.credentials.dig(:mailgun, :username),
+  # password:             Rails.application.credentials.dig(:mailgun, :password),
+  # authentication:       'plain',
+  # enable_starttls_auto: true
+  # }
 
   # Code is not reloaded between requests.
   config.cache_classes = true
