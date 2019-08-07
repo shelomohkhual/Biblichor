@@ -1,11 +1,13 @@
+<%# SIGN-FORM %>
 <div class="container text-center">
-  <h2 class="main-color">sign-up</h2>
-  <div class="container text-left">
+  <h4 class="main-color">sign-up</h4>
+  <div class="container text-left sign-form form-inputs">
     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    
       <%= f.error_notification %>
 
       <div class="form-inputs">
-        <%= f.input :username,
+       <%= f.input :username,
                     required: true,
                     autofocus: true,
                     input_html: { autocomplete: "username" }%>
@@ -21,11 +23,30 @@
                     required: true,
                     input_html: { autocomplete: "new-password" } %>
       </div>
+      
+      <%# SHARED-LINK %>
+      <div class="container text-center shared-link">
+        <%= render "users/shared/links" %>
+      </div>
 
-      <div class="form-actions">
+      <div class="form-actions text-center">
         <%= f.button :submit, "Sign up" %>
       </div>
+      <br>
+      <div class="container text-center fg-color">
+        <h6>- OR -</h6>
+      </div>
+
+      <%# SIGN-IN WITH %>
+      <div class="text-center social-btn">
+            <a href="/users/auth/facebook" class="btn btn-block"><i class="fa fa-facebook"></i> Sign in with <b>Facebook</b></a>
+            <a href="/users/auth/twitter" class="btn btn-block"><i class="fa fa-twitter"></i> Sign in with <b>Twitter</b></a>
+		      	<a href="/users/auth/google" class="btn btn-block"><i class="fa fa-google"></i> Sign in with <b>Google</b></a>
+      </div>
+
     <% end %>
   </div>
-  <%= render "users/shared/links" %>
+
+  
+
 </div>

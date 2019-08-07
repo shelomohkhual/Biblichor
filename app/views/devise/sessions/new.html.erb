@@ -1,9 +1,9 @@
 <%# SIGN-FORM %>
 <div class="container text-center">
   <h4 class="main-color">sign-in</h4>
-  <div class="container text-left sign-form">
+  <div class="container text-left sign-form form-inputs">
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
+ 
   <%= f.input :username,
                 required: false,
                 autofocus: true,
@@ -16,7 +16,7 @@
                 required: false,
                 input_html: { autocomplete: "current-password" } %>
     <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-  </div>
+
 
   <%# SHARED-LINK %>
   <div class="container text-center shared-link">

@@ -12,7 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super do |user|
-      UserMailer.welcome_email(user).deliver_later
+      UserMailer.welcome_email(user).deliver_now
     end
   end
 
