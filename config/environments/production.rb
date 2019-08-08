@@ -5,13 +5,13 @@ Rails.application.configure do
 
   # Gmail configuration
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.mailgun_settings = {
     api_key: Rails.application.credentials.dig(:mailgun, :mailgun_api),
     domain: "biblichor.site",
   }
   config.action_mailer.smtp_settings = {
-  address:              'smtp.mailgun.org',
+  address:              'smtp.gmail.com',
   port:                 587,
   domain:               'www.biblichor.site',
   user_name:            Rails.application.credentials.dig(:mailgun, :username),
