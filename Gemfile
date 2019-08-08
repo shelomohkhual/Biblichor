@@ -71,3 +71,5 @@ gem 'mailgun-ruby'
 gem 'sidekiq'
 
 gem 'devise-async'
+
+gem 'geocoder'

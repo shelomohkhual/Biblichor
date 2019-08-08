@@ -15,10 +15,13 @@ Rails.application.routes.draw do
   # match '/auth/facebook/callback', to: 'users/users/omniauth_callbacks#facebook', as: 'user_facebook_omniauth_callback', via: [:get, :post]
 
   # match ':controller/:action/:id', via: [:get, :post]
+  get '/users/address', to: 'users#address_form', as: 'address_registration'
+  post '/users/address', to: 'users#registered_address', as: 'address_registered'
 
   root to: "users#index"
-
+  
   resources :users, only: [:show, :update, :destroy]
-
+  # get '/users/address', to: 'users/registrations#address_form', as: 'address_registration'
+  
 
 end
