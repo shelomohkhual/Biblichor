@@ -1,6 +1,27 @@
 class User < ApplicationRecord
-  has_one_attached :avatar
-  serialize :address
+  # has_many :book
+  # has_many :rent
+  # profile image
+  has_one_attached :image
+
+  # search
+  # searchkick word_middle: [:name, :username, :city, :zipcode, :country, :state]
+  # FOR SEARCH KICK
+  # def search_data
+  #   {
+  #   username: username,
+  #   name: name,
+  #   state: state,
+  #   city: city,
+  #   zipcode: zipcode
+  #   }
+  # end
+  # FOR UPDATE
+  # after_commit :reindex_user
+  # def reindex_user
+  #     User.reindex
+  # end
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -14,7 +35,7 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.image = auth.info.image # assuming the user model has an image
+      # user.image = auth.info.image # assuming the user model has an image
       user.name = auth.info.name   # assuming the user model has a name
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
@@ -31,6 +52,8 @@ class User < ApplicationRecord
       end
     end
   end
+
+  
 
 
     protected

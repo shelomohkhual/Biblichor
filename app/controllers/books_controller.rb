@@ -1,19 +1,37 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
+  def search  
+    if params[:search].blank?  
+      redirect_to(root_path, alert: "Empty field!") and return  
+    else  
+        search = params[:search].present? ? params[:search] : nil
+        @search_result = if search
+            Book.search(search)
+        else
+            nil
+        end
+    end
+  end  
+
   # GET /books
   # GET /books.json
   def index
     @books = Book.all
-    @user_books = Book.where(owner_id: current_user.id)
   end
 
   # GET /books/1
   # GET /books/1.json
   def show
    
-    book= Book.find_by(id: params[:id])
-    @owner = User.find_by(id: book.owner_id )
+    @book= Book.find_by(id: params[:id])
+    @owner = User.find_by(id: @book[:owner_id] )
+    # byebug
+    if @book[:owner_name]== nil
+      @book[:owner_name] = @owner.username != nil ? @owner.username : @owner.name
+    else
+      nil
+    end
 
   end
 
@@ -31,6 +49,7 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     @book.owner_id = current_user.id
+    @book.owner_name = current_user.username != nil ? current_user.username : current_user.name
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
@@ -61,7 +80,7 @@ class BooksController < ApplicationController
   def destroy
     @book.destroy
     respond_to do |format|
-      format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Book was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

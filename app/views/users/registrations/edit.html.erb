@@ -1,35 +1,66 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<%# SIGN-FORM %>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
+<%# <div class="sub-bar"> %>
+  <%# <div class="sub-header"><%= link_to "Back", :back ></div> %>
+  <%# <div class="text-center"></div> %>
+<%# </div> %>
+ <div class="navbar" style='width:80%;margin:auto;'>
+        <div class="nav-header">
+            <%= link_to('<i class="fas fa-angle-left"></i> Back'.html_safe, :back, class: "fg-color") %>  
+        </div>
+        <div class="text-right fg-color"> 
+          <%= link_to('<i class="fas fa-user"></i> my-account'.html_safe,user_path(current_user), class: "fg-color")%>
+        </div>
+      </div>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
+<div class="container text-center">
+  <h4 class="main-color">edit-account</h4>
+  <div class="container text-left sign-form">
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= f.error_notification %>
+          
+      <div class="form-inputs">
+        <div class="container text-center"> <%# USERS AVATER %>
+          <%# byebug %>
+            <%# if @user.image == nil && !@user.image.attached? %>
+            
+              <%= image_tag 'avatar-placeholder.gif', class:'avatar',style:'width:80%;'%>
+             
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+            <%# else %>
+              <%#image_tag(@user.image,style:'width:100%;')%>
+            <%# end %>
+        </div>
+        <br>
+        <p class='fg-color'>Avatar: <%= f.file_field :image%></p>
+
+        <%= f.input :email, required: true, autofocus: true %>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+        <% end %>
+
+        <%= f.input :password,
+                    hint: "leave it blank if you don't want to change it",
+                    required: false,
+                    input_html: { autocomplete: "new-password" } %>
+        <%= f.input :password_confirmation,
+                    required: false,
+                    input_html: { autocomplete: "new-password" } %>
+        <%= f.input :current_password,
+                    hint: "we need your current password to confirm your changes",
+                    required: true,
+                    input_html: { autocomplete: "current-password" } %>
+      </div>
+      <br>
+      <div class="form-actions text-center">
+        <%= f.button :submit, "Update" %>
+      </div>
     <% end %>
+    <br>
+    <div class="container text-center">
+      <p><%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+    </div>
 
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+    </div>
+</div>

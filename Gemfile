@@ -73,3 +73,5 @@ gem 'sidekiq'
 gem 'devise-async'
 
 gem 'geocoder'
+
+gem 'searchkick'

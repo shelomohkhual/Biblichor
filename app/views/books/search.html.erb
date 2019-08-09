@@ -1,11 +1,4 @@
-<div class="container text-center">
-    <div class="fg-color">
-      <p>“A reader lives a thousand lives before he dies . . . <br>The man who never reads lives only one.”</p>
-      <h6>George R.R. Martin</h6>
-    </div>
-</div>
-<br>
-<%# SEARCH BAR %>
+<hr>
 <div class="container">
     <div id="custom-search-input">
 <%# ,class:'search-query form-control' %>
@@ -22,21 +15,20 @@
 
     </div>
 </div>
+<hr>
+<div class="container">
 
+    <% if @search_result == nil %>
 
-<br>
-<%# link_to('View Book', books_path) %>
-   <div class="container">
-    <% if @books == nil %>
         <div class="container text-center">
-            <h4 class="fg-color"> There's no books yet!</h4>
+            <p class="h4 fg-color"> there's nothing yet</p>
         </div>
+
     <% else %>
-    <div>
-        <h4 class="main-color font-italic">Romance</h4> <%#FOR GENRE%>
-    </div>
+
     <div class="row">
-        <% @books.each do |book| %>
+
+        <% @search_result.each do |book| %>
             <div class="container col-md-3 col-sm-6 shadow-md">
                 <div class="product-grid6">
                     <div class="product-image6">
@@ -61,6 +53,9 @@
                 </div>
             </div>
         <% end %>
-</div>
-    <% end %>
+
     </div>
+
+    <% end %>
+
+</div>
