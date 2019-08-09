@@ -49,8 +49,10 @@
           <div class="col-8"><%# BOOK DETAILS%>
             <div>
                   <div>
-                    <strong><%= "One Of Similair Book"%></strong><br> <%# TITLE %>
-                    <%= link_to "Guess Who",user_path, class:"author" %> <%# AUTHOR %>
+                    <h4><strong><%=@book.title%></strong></h4><%# TITLE %>
+                    <p class="fg-color">by: <%= link_to @book.author,user_path, class:"author" %><%# AUTHOR %>
+                    <br>
+                    Genre: <%= link_to @book.genre,user_path, class:"genre" %></p> <%# GENRE %>
                     <%# STARS %>
                     <div class="">
                       <span class="fa fa-star star"></span>

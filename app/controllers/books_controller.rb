@@ -5,6 +5,7 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     @books = Book.all
+    @user_books = Book.where(owner_id: current_user.id)
   end
 
   # GET /books/1
