@@ -1,6 +1,11 @@
 class User < ApplicationRecord
   # has_many :book
   # has_many :rent
+  belongs_to :renter, { :class_name => "User"}
+  has_many :books, { :class_name => "Book", :foreign_key => :owner_id }
+  has_many :rates, { :class_name => "Rate", :foreign_key => :rater_id }
+  has_many :rents, { :class_name => "Rent", :foreign_key => :renter_id }
+
   # profile image
   has_one_attached :image
 

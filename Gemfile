@@ -75,3 +75,5 @@ gem 'devise-async'
 gem 'geocoder'
 
 gem 'searchkick'
+
+# gem 'autosuggest'

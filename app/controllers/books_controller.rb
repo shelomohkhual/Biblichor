@@ -1,19 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
-  def search  
-    if params[:search].blank?  
-      redirect_to(root_path, alert: "Empty field!") and return  
-    else  
-        search = params[:search].present? ? params[:search] : nil
-        @search_result = if search
-            Book.search(search)
-        else
-            nil
-        end
-    end
-  end  
-
   # GET /books
   # GET /books.json
   def index
@@ -109,4 +96,29 @@ class BooksController < ApplicationController
     #     byebug
     #   end
     # end
+  
+    def search  
+      if params[:query].blank?  
+        redirect_to(root_path, alert: "Empty field!") and return  
+      else  
+          search = params[:query].present? ? params[:query] : nil
+          @search_result = if search
+              Book.search(search)
+          else
+              nil
+              # Book.all
+          end
+      end
+    end  
+
+    # def autocomplete
+    #   render json: Book.search(params[:query], {
+    #     fields: ["title^5", "author","genre","description","owner_name"],
+    #     match: :word_start,
+    #     limit: 10,
+    #     load: false,
+    #     misspellings: {below: 5}
+    #   }).map(&:title)
+    # end
+
 end
