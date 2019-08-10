@@ -26,21 +26,15 @@
 
         <p> <%# OWNER NAME  %>
           <strong>Owner:</strong>
-          <%# if @owner.username == nil && @owner.name == nil %>
-            <%# YouKnowWho %>
-          <%# else %>
-            <%# if @owner.username == nil%>
-              <%#owner_name = @owner.name%>
-            <%# else %>
-             <%# owner_name = @owner.username%> 
-            <%# <% end %>
-            <%# link_to(owner_name,user_path(@owner).html_safe) %>
-          <%# end %>
-
-           <% if @book.owner_name == nil%>
-              YouKnowWho
+          <% if @owner.username == nil && @owner.name == nil %>
+            YouKnowWho
           <% else %>
-            <%= link_to(@book.owner_name,user_path(@owner).html_safe) %>
+            <% if @owner.username == nil%>
+              <%owner_name = @owner.name%>
+            <% else %>
+             <%owner_name = @owner.username%> 
+            <% end %>
+            <%= link_to(owner_name,user_path(@owner).html_safe) %>
           <% end %>
         </p>
         <div class="row"> <%# BOOK DETAILS%>
@@ -136,7 +130,7 @@
     
     <%##############################################  %>
     <%# Similiar-Books  %>
-      <div class="col-3 d-md-none d-md-block">
+      <div class="col-3 d-md-none d-lg-block">
         <div class="container">
 
             <div class="container text-center">

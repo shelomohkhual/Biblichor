@@ -1,22 +1,21 @@
 class UsersController < ApplicationController
-    
-
     def index
         Book.all.empty? ? nil : @books = Book.all
     end
+<<<<<<< HEAD
 
-    def search  
-        if params[:search].blank?  
-          redirect_to(root_path, alert: "Empty field!") and return  
-        else  
-            search = params[:term].present? ? params[:term] : nil
-            @search_result = if search
-                User.search(search)
-            else
-                User.all
-            end
-        end
-    end  
+    # def search  
+    #     if params[:query].blank?  
+    #       redirect_to(root_path, alert: "Empty field!") and return  
+    #     else  
+    #         search = params[:query].present? ? params[:query] : nil
+    #         @search_result = if search
+    #             User.search(search)
+    #         else
+    #             User.all
+    #         end
+    #     end
+    # end  
 
     def show
         @user = User.find_by(id: params[:id])
@@ -33,4 +32,6 @@ class UsersController < ApplicationController
         end
 
     end
+=======
+>>>>>>> parent of 2be46a0... searchkick working
 end

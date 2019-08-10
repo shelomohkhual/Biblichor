@@ -72,6 +72,12 @@ gem 'sidekiq'
 
 gem 'devise-async'
 
+<<<<<<< HEAD
 gem 'geocoder'
 
 gem 'searchkick'
+
+# gem 'autosuggest'
+=======
+gem 'geocoder'
+>>>>>>> parent of 2be46a0... searchkick working
