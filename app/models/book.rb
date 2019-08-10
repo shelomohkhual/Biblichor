@@ -1,6 +1,9 @@
 class Book < ApplicationRecord
-    # belongs_to :owner_id
-    # has_many :renter_id
+    belongs_to :owner
+    belongs_to :renter
+    has_many :rate
+    has_many :genre
+
 
     # FOR IMAGES
     has_one_attached :front_cover
