@@ -18,9 +18,12 @@ Rails.application.routes.draw do
   
   resources :users, only: [:show, :update, :destroy]
   # get '/users/address', to: 'users/registrations#address_form', as: 'address_registration'
-  
+
+  # Books search
   get '/search' => 'books#search', :as => 'search_page'
-  get '/address' => 'users#address_form', :as => 'address_registration'
+  
+  get '/address' => 'users#address_form', :as => 'address_form'
+  post '/address' => 'users#create_address', :as => 'create_address'
 
 
 end

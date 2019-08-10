@@ -41,7 +41,11 @@
                             </p>
                         </div>
                         <div>
-                            <%= link_to "<span>RM 10.00</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                            <% if book.price != nil && book.price != '' %>
+                             <%= link_to "<span>RM #{book.price}</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                            <% else %>
+                             <%= link_to "<span>unknow</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                            <% end %>  
                         </div>
                     </div>
                 </div>

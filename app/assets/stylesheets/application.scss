@@ -114,7 +114,7 @@ clear: both;
 }
 .btn-price:hover span {display:none}
 .btn-price:hover:after {
-  content:"RENT?";
+  content:"RENT";
   color: #f6f3ef;
 }
 
@@ -205,3 +205,6 @@ input.btn, {
   // height: 300px; /* only if you want fixed height */
   }
 
+label {
+  color: #6b6a69;
+}

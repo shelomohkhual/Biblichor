@@ -1,8 +1,8 @@
 class Book < ApplicationRecord
-    belongs_to :owner
-    belongs_to :renter
-    has_many :rate
-    has_many :genre
+    # belongs_to :owner_id
+    # belongs_to :renter_id
+    # has_many :rate_id
+    # has_many :genre
 
 
     # FOR IMAGES
@@ -13,11 +13,11 @@ class Book < ApplicationRecord
     # SEARCH-KICK
     searchkick word_start: [:title, :author, :genre, :description, :owner_name]
 
-    # FOR UPDATE
-    after_commit :reindex_book
-    def reindex_book
-        Book.reindex
-    end
+    # # FOR UPDATE
+    # after_commit :reindex_book
+    # def reindex_book
+    #     Book.reindex
+    # end
 
     def search_data
         {

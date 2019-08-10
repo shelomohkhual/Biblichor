@@ -2,21 +2,26 @@ class UsersController < ApplicationController
     
 
     def index
-        Book.all.empty? ? nil : @books = Book.all
+        Book.all.empty? ? nil : books = Book.all.order('created_at DESC')
+        @books = if books.size > 4
+            books[0..3]
+        else
+            books
+        end
     end
 
-    def search  
-        if params[:search].blank?  
-          redirect_to(root_path, alert: "Empty field!") and return  
-        else  
-            search = params[:term].present? ? params[:term] : nil
-            @search_result = if search
-                User.search(search)
-            else
-                User.all
-            end
-        end
-    end  
+    # def search  
+    #     if params[:search].blank?  
+    #       redirect_to(root_path, alert: "Empty field!") and return  
+    #     else  
+    #         search = params[:term].present? ? params[:term] : nil
+    #         @search_result = if search
+    #             User.search(search)
+    #         else
+    #             User.all
+    #         end
+    #     end
+    # end  
 
     def show
         @user = User.find_by(id: params[:id])
@@ -31,6 +36,13 @@ class UsersController < ApplicationController
         else
             redirect_to(root_path, alert: "No User Found") and return 
         end
+
+    end
+
+    def address_form
+    end
+
+    def add_address
 
     end
 end

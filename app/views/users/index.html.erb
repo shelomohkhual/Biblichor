@@ -5,6 +5,7 @@
     </div>
 </div>
 <br>
+
 <%# SEARCH BAR %>
 <div class="container">
     <div id="custom-search-input">
@@ -12,7 +13,7 @@
         <%= form_tag(search_page_path, method: :get) do %>
          <div class="input-group">
             <%= search_field_tag :search, params[:search], placeholder: 'Search', class:'form-control'%>
-            <%= button_tag '<i class="fas fa-search" aria-hidden="true"></i>'.html_safe, class:" btn btn-info",name: :nil%>
+            <%= button_tag '<i class="fas fa-search" aria-hidden="true"></i>'.html_safe, class:" btn btn-info"%>
         </div>
         <% end %>
 
@@ -32,7 +33,7 @@
         </div>
     <% else %>
     <div>
-        <h4 class="main-color font-italic">Romance</h4> <%#FOR GENRE%>
+        <h4 class="main-color font-italic">Freshly-Added-Books</h4> <%#FOR GENRE%>
     </div>
     <div class="row">
         <% @books.each do |book| %>
@@ -54,12 +55,17 @@
                             </p>
                         </div>
                         <div>
-                            <%= link_to "<span>RM 10.00</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                           <% if book.price != nil && book.price != '' %>
+                             <%= link_to "<span>RM #{book.price}</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                            <% else %>
+                             <%= link_to "<span>unknow</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                            <% end %>  
                         </div>
                     </div>
                 </div>
             </div>
         <% end %>
+        <hr>
 </div>
     <% end %>
     </div>

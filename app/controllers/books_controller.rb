@@ -17,13 +17,13 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
+    @books = Book.all.order('created_at DESC')
   end
 
   # GET /books/1
   # GET /books/1.json
   def show
-   
+    @books = Book.all.order('created_at DESC')
     @book= Book.find_by(id: params[:id])
     @owner = User.find_by(id: @book[:owner_id] )
     # byebug
@@ -49,6 +49,7 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     @book.owner_id = current_user.id
+    # byebug
     @book.owner_name = current_user.username != nil ? current_user.username : current_user.name
     respond_to do |format|
       if @book.save
@@ -97,7 +98,7 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:title, :author, :published_date, :description, :genre, :front_cover, :back_cover, :features)
+      params.require(:book).permit(:title, :author, :published_date, :description, :genre, :front_cover, :back_cover, :features, :price)
     end
 
     # def book_exist?(id)
@@ -109,4 +110,7 @@ class BooksController < ApplicationController
     #     byebug
     #   end
     # end
+
+    
+
 end

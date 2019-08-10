@@ -73,7 +73,11 @@
                   <%= @book.description %>
                 </p>
                 <div>
-                  <%= link_to "<span>RM 10.00</span>".html_safe,user_path, class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                  <% if @book.price != nil && @book.price != "" %>
+                    <%= link_to "<span>RM #{@book.price}</span>".html_safe,user_path, class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                  <% else %>
+                    <%= link_to "<span>unknow</span>".html_safe,user_path, class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                  <% end %>
               </div>
           </div>
         </div>
@@ -147,43 +151,29 @@
             <%# ONE OF SIMILAIR BOOK %>
             <div class="container text-center">
               <%# image_tag @book.front_cover,size: "80x120"%> <%#  FRONT_COVER IMAGE %>
-              <%= image_tag "book-mockup.png", style: "width:80%;"%> <%#  MOCKUP IMAGE %>
-              <div>
-                <strong><%= "One Of Similair Book"%></strong> <%# TITLE %>
+              <% @books.each do |book|%>
+                  <%= link_to image_tag(book.front_cover,class:'img-responsive img-fluid', style:"width:100%;"),book_path(book)%>         
                 <div>
-                <%= link_to "Guess Who",user_path, class:"author" %> <%# AUTHOR %>
+                  <strong><%=book.title%></strong> <%# TITLE %>
+                  <div>
+                  <%= link_to book.author,book_path(book), class:"author" %> <%# AUTHOR %>
+                  </div>
+                  <%# STARS %>
+                  <span class="fa fa-star star"></span>
+                  <span class="fa fa-star star"></span>
+                  <span class="fa fa-star star"></span>
+                  <span class="fa fa-star star"></span>
+                  <span class="fa fa-star"></span>
                 </div>
-                <%# STARS %>
-                <span class="fa fa-star star"></span>
-                <span class="fa fa-star star"></span>
-                <span class="fa fa-star star"></span>
-                <span class="fa fa-star star"></span>
-                <span class="fa fa-star"></span>
-              </div>
-              <div>
-                <%= link_to "<span>RM 10.00</span>".html_safe,user_path, class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
-              </div>
-            </div>
-            <br>
-            <%# ONE OF SIMILAIR BOOK %>
-            <div class="container text-center">
-              <%# image_tag @book.front_cover,size: "80x120"%> <%#  FRONT_COVER IMAGE %>
-              <%= image_tag "book-mockup.png", style: "width:80%;"%> <%#  MOCKUP IMAGE %>
-              <div>
-                <strong><%= "One Of Similair Book"%></strong> <%# TITLE %>
                 <div>
-                <%= link_to "Guess Who",user_path, class:"author" %> <%# AUTHOR %>
+                  <% if book.price != nil && book.price != '' %>
+                      <%= link_to "<span>RM #{book.price}</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                    <% else %>
+                      <%= link_to "<span>unknow</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                    <% end %>  
                 </div>
-                <%# STARS %>
-                <span class="fa fa-star star"></span>
-                <span class="fa fa-star star"></span>
-                <span class="fa fa-star star"></span>
-                <span class="fa fa-star star"></span>
-                <span class="fa fa-star"></span>
-              </div>
-              <div>
-                <%= link_to "<span>RM 10.00</span>".html_safe,user_path, class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
-              </div>
+                <br>
+              <%end %>
             </div><%# END OF ONE OF SIMILAIR BOOK %>
             
         </div>
