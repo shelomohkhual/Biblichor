@@ -16,13 +16,11 @@ body {
     margin: auto;
     background-color: #f6f3ef;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    text-size-adjust: auto;
-    
 }
 .logo {
     margin: auto;
 }
-.main-color, strong , i{
+.main-color, strong {
     color: #6e482f;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
@@ -164,16 +162,6 @@ input.btn, {
   background-color: #6e482f;
 }
 
-.btn-info {
-  color: #6e482fb0;
-  background-color: #6e482f62;
-  border: #495057;
-}
-.btn-info:hover {
-  color: #f6f3ef;
-  background-color: #6e482f;
-  border: #6e482f;
-}
 
 // SUB-TITLE-BAR
 .sub-bar {
@@ -197,11 +185,3 @@ input.btn, {
   width: 500px;
   margin: auto;
 }
-
-// PRODUCT IMAGE
-.fit-image{
-  width: 100%;
-  object-fit: cover;
-  // height: 300px; /* only if you want fixed height */
-  }
-

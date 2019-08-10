@@ -1,4 +1,5 @@
 class Book < ApplicationRecord
+<<<<<<< HEAD
     belongs_to :owner, { :class_name => "User"}
     belongs_to :renter, { :class_name => "User"}
     has_many :rents, { :class_name => "User", :foreign_key => :book_id }
@@ -29,5 +30,10 @@ class Book < ApplicationRecord
         }
     end
 
+=======
+    has_one_attached :front_cover
+    has_one_attached :back_cover
+    has_many_attached :features
+>>>>>>> parent of 2be46a0... searchkick working
     
 end

@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
-    
-
     def index
         Book.all.empty? ? nil : @books = Book.all
     end
+<<<<<<< HEAD
 
     # def search  
     #     if params[:query].blank?  
@@ -33,4 +32,6 @@ class UsersController < ApplicationController
         end
 
     end
+=======
+>>>>>>> parent of 2be46a0... searchkick working
 end

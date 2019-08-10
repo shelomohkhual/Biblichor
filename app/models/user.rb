@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+<<<<<<< HEAD
   # has_many :book
   # has_many :rent
   belongs_to :renter, { :class_name => "User"}
@@ -27,6 +28,10 @@ class User < ApplicationRecord
   #     User.reindex
   # end
   
+=======
+  has_one_attached :avatar
+  serialize :address
+>>>>>>> parent of 2be46a0... searchkick working
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -40,7 +45,7 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      # user.image = auth.info.image # assuming the user model has an image
+      user.image = auth.info.image # assuming the user model has an image
       user.name = auth.info.name   # assuming the user model has a name
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
@@ -57,8 +62,6 @@ class User < ApplicationRecord
       end
     end
   end
-
-  
 
 
     protected
