@@ -12,25 +12,6 @@
         <div style='background-color:white;' id="map"></div>
     </div>
 
-    <%# FORM %>
-        <%= simple_form_for(:address,id:'address') do |f| %>
-
-        <div class="form-inputs ">
-           <%= f.input :lat,class:"field" %>
-            <%= f.input :lng,class:"field"  %>
-            <%= f.input :formatted_address,class:"field",id:"route"  %>
-            <%# f.input :street,class:"field",id:"route"  %>
-            <%= f.input :state,class:"field",id:'administrative_area_level_1'  %>
-            <%= f.input :city,class:"field",id:'locality'  %>
-            <%= f.input :zipcode,class:"field",id:'postal_code'%>
-            <%#f.input :country,id:'country'%>
-        <hr>
-        <div class="form-actions text-center">
-            <%= f.button :submit,"submit"%>
-        </div>
-        </div>
-        <% end %>
-
     <%# JS SCRIPT %>
     <script>
       // This example requires the Places library. Include the libraries=places
@@ -97,6 +78,11 @@
               (place.address_components[2] && place.address_components[2].short_name || '')
             ].join(' ');
             debugger
+            $("#formatted_address").val(address); 
+            $("#locality").val(place.address_components[1].long_name); 
+            $("#administrative_area_level_1").val(place.address_components[2].long_name); 
+            $("#postal_code").val(place.address_components[3].long_name); 
+            $("#country").val(place.address_components[3].long_name); 
           }
 
           infowindowContent.children['place-icon'].src = place.icon;
