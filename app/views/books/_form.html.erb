@@ -7,7 +7,26 @@
     <%= f.input :author %>
     <%= f.input :published_date %>
     <%= f.input :description %>
-    <%= f.input :genre %>
+    <%= f.select :genre, ['Action & Adventure',
+                        'Comic',
+                        'Crime',
+                        'Drama',
+                        'Fairytale',
+                        'Fantasy',
+                        'Graphic Novel',
+                        'Historical Fiction',
+                        'Horror',
+                        'Mystery',
+                        'Poetry',
+                        'Romance',
+                        'Science Fiction',
+                        'Short Story',
+                        'Young Adult',
+                        'Religion/Spiritual',
+                        'Health',
+                        'Art',
+                        'Education',
+                        'Selfhelp'], multiple: 'multiple'%>
     <%= f.input :price %>
     <%= f.label :front_cover %>
     <%= f.file_field :front_cover %>
@@ -21,3 +40,4 @@
     <%= f.button :submit %>
   </div>
 <% end %>
+

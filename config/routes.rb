@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   # Books search
   get '/search' => 'books#search', :as => 'search_page'
+
+  get '/cart' => 'users#cart', :as => 'cart'
   
   get '/address' => 'users#address_form', :as => 'address_form'
   post '/address' => 'users#create_address', :as => 'create_address'

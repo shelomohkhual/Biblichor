@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
     
+    def cart
+        @cart= Book.all
+    end
 
     def index
         Book.all.empty? ? nil : books = Book.all.order('created_at DESC')

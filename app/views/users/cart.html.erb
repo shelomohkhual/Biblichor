@@ -1,0 +1,57 @@
+
+<div class='container ' style='width:50%;'>
+  <p class=" text-center h4 main-color">cart</p>
+<hr>
+<% if @cart %>
+    <% @cart.each do |book| %>
+    <div class="container">
+        <div class="row"> <%# BOOK DETAILS%>
+          <div class="col-5 shadow-md"><%# BOOK FRONT_COVER%>
+              <%# image_tag "book-mockup.png", style: "width:200px; height:300px; position:absolute;", class:"shadow-md"%> <%#  MOCKUP IMAGE %>
+              <% if book.front_cover == nil %>
+                <%= image_tag "book-mockup.png", style: "width:100%;"%> <%#  DEFAULT IMAGE %>
+              <% else  %>
+                <%= image_tag book.front_cover, style: "width:100%;"%> <%#  FRONT_COVER IMAGE %>
+              <% end %>
+          </div>
+          <div class="col-7"><%# BOOK DETAILS%>
+            <div>
+                  <div>
+                    <h4><strong><%=book.title%></strong></h4><%# TITLE %>
+                    <p class="fg-color">by: <%= link_to book.author, class:"author" %><%# AUTHOR %>
+                    <br>
+                    Genre: <%= link_to book.genre, class:"genre" %></p> <%# GENRE %>
+                    <%# STARS %>
+                    <div class="">
+                      <span class="fa fa-star star"></span>
+                      <span class="fa fa-star star"></span>
+                      <span class="fa fa-star star"></span>
+                      <span class="fa fa-star star"></span>
+                      <span class="fa fa-star"></span>
+                    </div>
+                  </div>
+                </div>
+                <p class="fg-color font-italic">
+                <%if book.description.length > 50 %>
+                    <%= book.description[0..50]%>...
+                <% else %>
+                    <%= book.description%>
+                <% end %>
+                </p>
+                <div>
+                  <% if book.price != nil && book.price != "" %>
+                    <%= link_to "<span>RM #{book.price}</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                  <% else %>
+                    <%= link_to "<span>unknow</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                  <% end %>
+              </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+    <% end %>
+<% else %>
+    your cart is empty
+<% end %>
+
+</div>
