@@ -77,3 +77,5 @@ gem 'geocoder'
 gem 'searchkick'
 
 gem "administrate"
+
+gem 'geocoder'

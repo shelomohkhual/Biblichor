@@ -40,9 +40,21 @@ class UsersController < ApplicationController
     end
 
     def address_form
+
     end
 
     def add_address
+        @user = User.(id: current_user.id)
+        if @user.update(address_params)
+            redirect_to user_path(@user), notice: 'Address was successfully updated.'
+        else
+            redirect_to address_form_path, alert: "can't update address"
+        end
+    end
 
+    private
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def address_params
+        params.require(:address).permit(:lat, :lng, :formatted_address, :state, :city, :zipcode, :country)
     end
 end

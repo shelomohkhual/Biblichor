@@ -1,16 +1,16 @@
 <%# SEARCH BAR %>
 <div class="container">
-    <div id="custom-search-input">
+    <div class="container text-left sign-form">
+        <div id="custom-search-input  ">
 <%# ,class:'search-query form-control' %>
-        <%= form_tag(search_page_path, method: :get) do %>
-         <div class="input-group">
-            <%= search_field_tag :search, params[:search], placeholder: 'Search', class:'form-control'%>
-            <%= button_tag '<i class="fas fa-search" aria-hidden="true"></i>'.html_safe, class:" btn btn-info"%>
+            <%= form_tag address_form_path, :method => 'get', :id => "pac-container", :onFocus => "geolocate()" do %>
+            <div class="input-group">
+                <%= text_field_tag :search, params[:search], class:'form-control'%>
+                <%= button_tag '<i class="fas fa-search" aria-hidden="true"></i>'.html_safe, class:" btn btn-info", :name => nil %>
+            </div>
+            <% end %>
+    <hr>
+            <div id="map"></div>
         </div>
-        <% end %>
-
-        <%# <input type="text" class="  search-query form-control" placeholder="Search ..." /> %>
-        <%# <button class="btn btn-link search-btn"><i class="lyphicon glyphicon-search"></i></button> %>
-
     </div>
 </div>

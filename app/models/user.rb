@@ -4,6 +4,10 @@ class User < ApplicationRecord
   # profile image
   has_one_attached :image
 
+  # GEOCODER
+  # geocoded_by :address
+  # geocoded_by :address
+  
   # search
   # searchkick word_middle: [:name, :username, :city, :zipcode, :country, :state]
   # FOR SEARCH KICK
