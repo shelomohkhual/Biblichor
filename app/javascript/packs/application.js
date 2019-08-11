@@ -7,11 +7,13 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
-
+// require("googlemap")
+//= require jquery_ujs
+// = require gmaps-auto-complete
 
 
 import 'bootstrap';
-import 'googlemap';
+// import 'googlemap';
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference

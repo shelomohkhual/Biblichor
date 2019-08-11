@@ -1,0 +1,31 @@
+#map {
+    height: 300px;
+    width:100%;
+    margin: auto;
+  }
+
+  #description {
+
+  }
+
+  #infowindow-content .title {
+
+  }
+
+  #infowindow-content {
+    display: none;
+  }
+
+  #map #infowindow-content {
+    display: inline;
+  }
+
+  #pac-input {
+    padding: 5px;
+    width:100%;
+    text-overflow: ellipsis;
+    font-size:15px;
+  }
+
+  #pac-input:focus {
+  }

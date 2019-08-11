@@ -114,7 +114,7 @@ clear: both;
 }
 .btn-price:hover span {display:none}
 .btn-price:hover:after {
-  content:"RENT";
+  content:"RENT?";
   color: #f6f3ef;
 }
 
@@ -149,7 +149,7 @@ clear: both;
 .form-control-label, .form-check-label{
   color: #6b6a69;
 }
-input .btn {
+input.btn, {
   margin: auto;
   text-align: center;
   background-color: #6e482f;
@@ -171,11 +171,9 @@ input .btn {
 }
 .btn-info:hover {
   color: #f6f3ef;
-  background-color: #6e482fc2;
+  background-color: #6e482f;
   border: #6e482f;
 }
-
-
 
 // SUB-TITLE-BAR
 .sub-bar {
@@ -206,7 +204,3 @@ input .btn {
   object-fit: cover;
   // height: 300px; /* only if you want fixed height */
   }
-
-label {
-  color: #6b6a69;
-}

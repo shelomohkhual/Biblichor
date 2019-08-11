@@ -79,3 +79,7 @@ gem 'searchkick'
 gem "administrate"
 
 gem 'geocoder'
+
+# FOR MAP
+# gem 'jquery-rails'
+# gem 'gmaps-autocomplete-rails'
