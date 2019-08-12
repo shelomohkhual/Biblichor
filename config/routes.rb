@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
+  get 'genre/:genre', to: 'books#index', as: :genre
 
   namespace :admin do
       resources :users
-      resources :genres
-      resources :books
 
       root to: "users#index"
     end
 
-  resources :genres
-  resources :books
+  # resources :genres
+  resources :books, :except => [:index]
+  
   
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations' }
   # devise_for :users, controllers: { registrations: 'users/registrations' }

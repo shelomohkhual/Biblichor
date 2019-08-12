@@ -17,7 +17,12 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all.order('created_at DESC')
+    # @books = Book.all.order('created_at DESC')
+    @books = if params[:genre]
+      Book.genre(params[:genre])
+    else
+      Books.all.order('created_at DESC')
+    end
   end
 
   # GET /books/1
@@ -50,6 +55,7 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     @book.owner_id = current_user.id
+
     # byebug
     @book.owner_name = current_user.username != nil ? current_user.username : current_user.name
     respond_to do |format|
@@ -66,7 +72,20 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
+    # byebug 
+    # genre = []
+    # genre_ids = book_params[:genre_ids]
+    # genre_ids.size.times do |n|
+    #   if book_params[:genre_ids][n].to_i == 0
+    #     nil
+    #   else
+    #     genre << Genre.find_by(id: book_params[:genre_ids][n].to_i)
+    #   end
+    # end
+    # byebug
+
     respond_to do |format|
+
       if @book.update(book_params)
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @book }
@@ -99,7 +118,15 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:title, :author, :published_date, :description, :genre, :front_cover, :back_cover, :features, :price)
+      params.require(:book).permit(:title,
+                                  :author,
+                                  :published_date,
+                                  :description,
+                                  :front_cover,
+                                  :back_cover,
+                                  :features,
+                                  :price,
+                                  genre_ids: [])
     end
 
     # def book_exist?(id)

@@ -3,17 +3,19 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+//= require select2
+
 require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
-// require("googlemap")
-//= require jquery_ujs
-// = require gmaps-auto-complete
+require("jquery")
 
-
+import 'bootstrap/dist/js/bootstrap';
 import 'bootstrap';
-// import 'googlemap';
+import "./book";
+import "./all";
+import "select2";
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -23,9 +25,3 @@ import 'bootstrap';
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-// NOTIFICATION AND ALERT
-window.setTimeout(function() {
-    $(".alert").fadeTo(500, 0).slideUp(500, function(){
-        $(this).remove(); 
-    });
-}, 4000);

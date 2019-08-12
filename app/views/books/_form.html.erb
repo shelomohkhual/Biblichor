@@ -1,4 +1,4 @@
-<%= simple_form_for(@book) do |f| %>
+<%= simple_form_for @book, remote: true do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
@@ -7,7 +7,9 @@
     <%= f.input :author %>
     <%= f.input :published_date %>
     <%= f.input :description %>
-    <%= f.select :genre, ['Action & Adventure',
+    <%# <%= f.input :genre_ids, as: :select, collection: Genre.order(:name), label_method: :name, input_html: {multiple: true,class: 'genre-tags'} %> %>
+    <%= f.input :genre_ids, input_html: {class: 'genre-tags', multiple: "multiple" }, collection: Genre.order(:name) %> 
+    <%# f.select :genre, ['Action & Adventure',
                         'Comic',
                         'Crime',
                         'Drama',

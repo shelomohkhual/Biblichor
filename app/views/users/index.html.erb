@@ -22,7 +22,7 @@
 
     </div>
 </div>
-
+<%#byebug %>
 
 <br>
 <%# link_to('View Book', books_path) %>
@@ -52,8 +52,20 @@
                             <span class="fa fa-star star"></span>
                             <span class="fa fa-star star"></span>
                             <span class="fa fa-star"></span>
+                        <% if book.genres %>
+                        <small>
+                        <div class='select2-results text-center'>
+                                <% book.genres[0..1].each do |g| %>
+                                <div class='tags-btn'>
+                                <%= link_to g.name, genre_path(g.name) %>
+                                </div>
+                                <% end %>
+                        </div>
+                        </small>
+                        <% end %>
                             </p>
                         </div>
+                        
                         <div>
                            <% if book.price != nil && book.price != '' %>
                              <%= link_to "<span>RM #{book.price}</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>

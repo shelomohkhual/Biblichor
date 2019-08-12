@@ -47,7 +47,6 @@ class UsersController < ApplicationController
     end
 
     def create_address
-        byebug
         @user = User.(id: current_user.id)
         if @user.update(address_params)
             redirect_to user_path(@user), notice: 'Address was successfully updated.'

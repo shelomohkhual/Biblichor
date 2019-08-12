@@ -1,3 +1,6 @@
+@import "select2";
+@import "select2-bootstrap";
+
 // Graphical variables
 @import "config/fonts";
 @import "config/colors";
@@ -7,14 +10,16 @@
 @import "bootstrap/scss/bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
-
 // Your CSS partials
 @import "pages/index";
+
+
 
 body {
     width:80%;
     margin: auto;
     background-color: #f6f3ef;
+    color: 6e482f;
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-size-adjust: auto;
     
@@ -142,13 +147,49 @@ clear: both;
   width: 400px;
 }
 
-.form-control,.form-check-input{
+.form-control,.form-check-input, select2-container{
   background-color: #f6f3ef;
 }
 
 .form-control-label, .form-check-label{
   color: #6b6a69;
 }
+.select2-container--bootstrap .select2-selection{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.select2-container--bootstrap .select2-selection{
+   background-color: #f6f3ef; 
+  border: 1px solid #ced4da;
+  border-radius: 2px;
+  cursor: text;
+}
+.select2-results__options{
+  background-color: #f6f3ef; 
+  border: 1px solid ;
+  color: #6e482f;
+  border-radius: 2px;
+}
+.select2-results ul li{
+  border: 1px solid #6e482f62;
+  border-radius: 2px;
+  background: #6e482f62;
+  margin: 2px;
+}
+.select2-container--bootstrap .select2-results__option--highlighted[aria-selected]{
+background-color: #6e482f;
+color: #f6f3ef;
+}
+div .tags-btn a{
+  border: 1px solid #6e482f62;
+  border-radius: 2px;
+  background: #6e482f62;
+  padding: 2px;
+}
+div .tags-btn{
+  margin: 2px;
+  padding: 1px;
+}
+
 input.btn, {
   margin: auto;
   text-align: center;
@@ -204,3 +245,16 @@ input.btn, {
   object-fit: cover;
   // height: 300px; /* only if you want fixed height */
   }
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.fa,
+.fas {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  font-size: small;
+}
+

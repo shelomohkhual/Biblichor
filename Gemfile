@@ -80,10 +80,4 @@ gem "administrate"
 
 gem 'geocoder'
 
-# FOR MAP
-# gem 'jquery-rails'
-# gem 'gmaps-autocomplete-rails'
-
-# gem 'spree'
-# gem 'spree_auth_devise'
-# gem 'spree_gateway'
+gem "select2-rails"

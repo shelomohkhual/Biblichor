@@ -1,29 +1,23 @@
-<%# link_to('View Book', books_path) %>
-   <div class="container">
+ <div class="container">
     <% if @books == nil %>
         <div class="container text-center">
-            <h4 class="fg-color"> There's No Book in your shelve.</h4>
+            <h4 class="fg-color"> There's no books yet!</h4>
         </div>
     <% else %>
     <div>
-        <h4 class="main-color font-italic">My Shelve</h4> <%#FOR GENRE%>
+        <h4 class="main-color font-italic">Freshly-Added-Books</h4> <%#FOR GENRE%>
     </div>
     <div class="row">
-        <% @user_books.each do |book| %>
+        <% @books.each do |book| %>
             <div class="container col-md-3 col-sm-6 shadow-md">
                 <div class="product-grid6">
                     <div class="product-image6">
-                        <a href="<%=book_path(book)%>">
-                            <%= image_tag book.front_cover, style:"width:245px; height:370px;"%>
-                        </a>
+                            <%= link_to image_tag(book.front_cover),book_path(book)%>
                     </div>
                     <div class="product-content text-center">
                         <div>
-                            <h5><strong><%= book.title%></strong></h5> <%# TITLE %>
-                            <p class="font-italic author"><%=book.author%> <%# AUTHOR %>
-                            <br>
-                            Genre: <%= link_to book.genre, class:"genre fg-color" %> <%# GENRE %>
-                            <br>
+                            <h6><strong><%= book.title%></strong></h6> <%# TITLE %>
+                            <p class="font-italic author"><%=book.author%><br><%# AUTHOR %>
                             <%# STARS %>
                             <span class="fa fa-star star"></span>
                             <span class="fa fa-star star"></span>
@@ -32,17 +26,23 @@
                             <span class="fa fa-star"></span>
                             </p>
                         </div>
+                        <%# GENRE %>
                         <div>
-                            <% if @book.price != nil && @book.price != "" %>
-                             <%= link_to "<span>RM #{@book.price}</span>".html_safe,user_path, class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                        <p><small><%= raw book.genres.map(&:name).map { |g| link_to g, genre_path(g) }.join(', ') %></small></p>
+                        </div>
+
+                        <div>
+                           <% if book.price != nil && book.price != '' %>
+                             <%= link_to "<span>RM #{book.price}</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
                             <% else %>
-                             <%= link_to "<span>unknow</span>".html_safe,user_path, class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
-                            <% end %>                        
+                             <%= link_to "<span>unknow</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                            <% end %>  
                         </div>
                     </div>
                 </div>
             </div>
         <% end %>
+        <hr>
 </div>
     <% end %>
     </div>
