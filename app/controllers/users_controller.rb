@@ -1,10 +1,39 @@
 class UsersController < ApplicationController
     
     def cart
-        @cart= Book.all
+        @cart= current_user.cart.reverse
+    end
+
+    def add_cart
+        user = current_user
+        if user.cart.include?(Book.find_by(id: params[:book]))
+            redirect_to(cart_path, notice: "added") and return
+        else
+            user.cart << Book.find_by(id: params[:book])
+            if user.save
+                redirect_to cart_path
+            else
+                redirect_to(cart_path, alert: "no save") and return
+            end
+        end
+    end
+
+    def remove_cart
+        user = current_user
+        if user.cart.include?(Book.find_by(id: params[:book]))
+            user.cart.delete(Book.find_by(id: params[:book]))
+            if user.save
+                redirect_to cart_path
+            else
+                redirect_to(cart_path, alert: "no save") and return
+            end
+        else
+            nil
+        end
     end
 
     def index
+        @user = current_user
         Book.all.empty? ? nil : books = Book.all.order('created_at DESC')
         @books = if books.size > 4
             books[0..3]
@@ -29,7 +58,7 @@ class UsersController < ApplicationController
     def show
         @user = User.find_by(id: params[:id])
         if @user
-            # byebug
+            
             @user_books = Book.all.where(owner_id: @user[:id])
             if @user.username == nil && @user.name == nil
                 @username = "You Know Who"
@@ -59,6 +88,6 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def address_params
         params.require(:address).permit(:lat, :lng, :formatted_address, :state, :city, :zipcode, :country)
-        byebug
+        
     end
 end

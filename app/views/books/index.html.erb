@@ -1,13 +1,17 @@
  <div class="container">
-    <% if @books == nil %>
+    <% if @books == nil && @genre == nil %>
         <div class="container text-center">
-            <h4 class="fg-color"> There's no books yet!</h4>
+            <p class="h4 fg-color"> There's no books yet!</p>
         </div>
     <% else %>
-    <div>
-        <h4 class="main-color font-italic">Freshly-Added-Books</h4> <%#FOR GENRE%>
-    </div>
-    <div class="row">
+        <% if @genre %>
+            <div class='text-center'>
+                <p class="h5 main-color font-italic"><%= @genre %></p> <%#FOR GENRE%>
+                <hr>
+            </div>
+            
+        <% end %>
+        <div class="row">
         <% @books.each do |book| %>
             <div class="container col-md-3 col-sm-6 shadow-md">
                 <div class="product-grid6">
@@ -27,9 +31,17 @@
                             </p>
                         </div>
                         <%# GENRE %>
-                        <div>
-                        <p><small><%= raw book.genres.map(&:name).map { |g| link_to g, genre_path(g) }.join(', ') %></small></p>
-                        </div>
+                         <% if book.genres %>
+                            <small>
+                            <div class='select2-results text-center'>
+                                    <% book.genres[0..1].each do |g| %>
+                                    <div class='tags-btn'>
+                                    <%= link_to g.name, genre_path(g.name) %>
+                                    </div>
+                                    <% end %>
+                            </div>
+                            </small>
+                        <% end %>
 
                         <div>
                            <% if book.price != nil && book.price != '' %>
@@ -43,6 +55,7 @@
             </div>
         <% end %>
         <hr>
-</div>
+        </div>
+  
     <% end %>
-    </div>
+</div>

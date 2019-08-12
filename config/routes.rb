@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get 'genre/:genre', to: 'books#index', as: :genre
+  get '/genre/:genre', to: 'books#index', as: :genre
+  get '/genre/', to: 'books#index', as: :all_genre
 
   namespace :admin do
       resources :users
@@ -23,6 +24,8 @@ Rails.application.routes.draw do
   get '/search' => 'books#search', :as => 'search_page'
 
   get '/cart' => 'users#cart', :as => 'cart'
+  get '/cart/:book' => 'users#add_cart', :as => 'add_cart'
+  delete '/cart/:book' => 'users#remove_cart', :as => 'remove_cart'
   
   get '/address' => 'users#address_form', :as => 'address_form'
   post '/address' => 'users#create_address', :as => 'create_address'

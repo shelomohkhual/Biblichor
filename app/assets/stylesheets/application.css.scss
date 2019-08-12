@@ -119,10 +119,37 @@ clear: both;
 }
 .btn-price:hover span {display:none}
 .btn-price:hover:after {
-  content:"RENT?";
+  content:"add-cart";
   color: #f6f3ef;
 }
+.btn-remove {
+  color: #f6f3ef;
+  background-color: #b91919c2;
+}
+.btn-remove:hover {
+  color: #f6f3ef;
+  background-color: #b91919;
+}
 
+.btn-remove:hover span {display:none}
+.btn-remove:hover:after {
+  content:"sure?";
+  color: #f6f3ef;
+}
+.btn-process {
+  color: #f6f3ef;
+  background-color: #198cb9c2;
+}
+.btn-process:hover {
+  color: #f6f3ef;
+  background-color: #198cb9;
+}
+
+.btn-process:hover span {display:none}
+.btn-process:hover:after {
+  content:"process";
+  color: #f6f3ef;
+}
 .notification {
   position: absolute;
   top: 0;
@@ -138,9 +165,10 @@ clear: both;
   color:#b91919;
 }
 
-.danger {
-  color: #b91919;
-}
+// .btn .danger {
+//   color: #f6f3ef;
+//   background-color: #b91919;
+// }
 
 // SIGN-FORM
 .sign-form{
@@ -258,3 +286,6 @@ p {
   font-size: small;
 }
 
+.description{
+  font-size: 13px;
+}

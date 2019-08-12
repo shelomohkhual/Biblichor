@@ -1,8 +1,11 @@
 class User < ApplicationRecord
+  serialize :cart, Array
+
   has_many :book
   has_many :rent
   # profile image
   has_one_attached :image
+
 
   # GEOCODER
   # geocoded_by :address

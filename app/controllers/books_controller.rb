@@ -18,10 +18,16 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     # @books = Book.all.order('created_at DESC')
+    @genres = Genre.all
+    @genre = if params[:genre]
+      params[:genre]
+    else
+      nil
+    end
     @books = if params[:genre]
       Book.genre(params[:genre])
     else
-      Books.all.order('created_at DESC')
+      Book.all.order('created_at DESC')
     end
   end
 
@@ -31,7 +37,7 @@ class BooksController < ApplicationController
     @books = Book.all.order('created_at DESC')
     @book= Book.find_by(id: params[:id])
     @owner = User.find_by(id: @book[:owner_id] )
-    # byebug
+    
     if @book[:owner_name]== nil
       @book[:owner_name] = @owner.username != nil ? @owner.username : @owner.name
     else
@@ -56,7 +62,7 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     @book.owner_id = current_user.id
 
-    # byebug
+    
     @book.owner_name = current_user.username != nil ? current_user.username : current_user.name
     respond_to do |format|
       if @book.save
@@ -72,7 +78,7 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-    # byebug 
+     
     # genre = []
     # genre_ids = book_params[:genre_ids]
     # genre_ids.size.times do |n|
@@ -82,7 +88,7 @@ class BooksController < ApplicationController
     #     genre << Genre.find_by(id: book_params[:genre_ids][n].to_i)
     #   end
     # end
-    # byebug
+    
 
     respond_to do |format|
 
@@ -130,12 +136,12 @@ class BooksController < ApplicationController
     end
 
     # def book_exist?(id)
-    #   # byebug
+    #   
     #   if !Book.exists?(id)
     #     # render :root_path
     #     redirect_to books_path
 
-    #     byebug
+    #     
     #   end
     # end
 

@@ -11,7 +11,7 @@ class Book < ApplicationRecord
     has_many_attached :features
 
     # SEARCH-KICK
-    searchkick word_start: [:title, :author, :description, :owner_name]
+    searchkick word_start: [:title, :author, :genres, :description, :owner_name]
 
     # # FOR UPDATE
     # after_commit :reindex_book
@@ -42,7 +42,7 @@ class Book < ApplicationRecord
         {
         title: title,
         author: author,
-        # genre_tag: genre_tag,
+        genres: genres,
         description: description,
         owner_name: owner_name,
         owner_id: owner_id,

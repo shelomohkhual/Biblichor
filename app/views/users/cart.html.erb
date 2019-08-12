@@ -14,13 +14,10 @@
                 <%= image_tag book.front_cover, style: "width:100%;"%> <%#  FRONT_COVER IMAGE %>
               <% end %>
           </div>
-          <div class="col-7"><%# BOOK DETAILS%>
-            <div>
-                  <div>
+          <div class="col-7 d-flex flex-column justify-content-between"><%# BOOK DETAILS%>
+              <div>
                     <h4><strong><%=book.title%></strong></h4><%# TITLE %>
-                    <p class="fg-color">by: <%= link_to book.author, class:"author" %><%# AUTHOR %>
-                    <br>
-                    Genre: <%= link_to book.genre, class:"genre" %></p> <%# GENRE %>
+                    <div class="fg-color">by: <%= link_to book.author, class:"author" %></div><%# AUTHOR %>
                     <%# STARS %>
                     <div class="">
                       <span class="fa fa-star star"></span>
@@ -29,21 +26,40 @@
                       <span class="fa fa-star star"></span>
                       <span class="fa fa-star"></span>
                     </div>
-                  </div>
+                    <%# description %>
+                    <div>
+                      <p class="fg-color font-italic description">
+                      <%if book.description.length > 100 %>
+                          <%= book.description[0..100]%>...
+                      <% else %>
+                          <%= book.description%>
+                      <% end %>
+                      </p>
+                    </div>
                 </div>
-                <p class="fg-color font-italic">
-                <%if book.description.length > 50 %>
-                    <%= book.description[0..50]%>...
-                <% else %>
-                    <%= book.description%>
-                <% end %>
-                </p>
+                <%# GENRE %>
                 <div>
+                  <% if book.genres %>
+                    <small>
+                    <div class='select2-results text-left'>
+                            <% book.genres.each do |g| %>
+                            <div class='tags-btn'>
+                            <%= link_to g.name, genre_path(g.name) %>
+                            </div>
+                            <% end %>
+                    </div>
+                    </small>
+                    <% end %>
+                </div>
+                <div class="fg-color">owner: <%= link_to(book.owner_name,user_path(book.owner_id).html_safe) %></div><%# owner %>
+               
+                <div class="">
                   <% if book.price != nil && book.price != "" %>
-                    <%= link_to "<span>RM #{book.price}</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                    <%= link_to "<span>RM #{book.price}</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-process" %><%# PRICE-BUTTON %>
                   <% else %>
-                    <%= link_to "<span>unknow</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-price" %><%# PRICE-BUTTON %>
+                    <%= link_to "<span> payment </span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-process" %><%# PRICE-BUTTON %>
                   <% end %>
+                    <%= link_to "<span> remove </span>".html_safe,remove_cart_path(book),method: :delete, data: { confirm: "removing '#{book.title}' from your cart?" }, class:"btn btn-sm sharp btn-remove" %><%# REMOVE-BUTTON %>
               </div>
           </div>
         </div>

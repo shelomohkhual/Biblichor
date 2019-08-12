@@ -70,12 +70,11 @@
         <%# USER AVATAR %>
         <div class="container">
           <div> <%# USERS AVATER %>
-          <%# byebug %>
-            <%# if @user.image == nil && !@user.image.attached? %>
-             <%= image_tag 'avatar-placeholder.gif',style:'width:100%;' %>
-            <%# else %>
-              <%#image_tag(@user.image,style:'width:100%;')%>
-            <%# end %>
+            <% if  @user[:image]== nil && !@user.image.attached? %>
+             <%= image_tag('avatar-placeholder.gif',style:'width:100%;') %>
+                <% else %>
+              <%= image_tag(@user.image, style:'width:100%;')%>
+            <% end %>
           </div>
           <br>
           <div class="bottom text-center">

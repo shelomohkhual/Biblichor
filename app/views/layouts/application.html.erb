@@ -31,7 +31,6 @@
       </div>
     <% end %>
   <% end %>
-<% @cart = Book.all %>
 <div class="navbar">
     <div class="nav-header">
       <div class="nav-title">
@@ -58,7 +57,7 @@
         <%= link_to('<li>sign in</li>'.html_safe, new_user_session_path, class: "fg-color")%>
         <%= link_to('<li>sign up</li>'.html_safe, new_user_registration_path, class: "fg-color")%>
       <% end %>
-      <li><a href="<%=cart_path%>" class="fg-color"><i class="far fa-shopping-cart"></i> cart(<%=@cart.size%>)</a></li>
+      <li><a href="<%=cart_path%>" class="fg-color"><i class="far fa-shopping-cart"></i> cart(<%=current_user.cart.size%>)</a></li>
     </ul>
   </div>
 
