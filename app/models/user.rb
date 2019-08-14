@@ -39,9 +39,6 @@ class User < ApplicationRecord
   
   after_commit :send_pending_devise_notifications
 
-  def send_devise_notification(notification, *args)
-    devise_mailer.send(notification, self, *args).deliver_now
-  end
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
