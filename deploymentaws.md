@@ -26,11 +26,18 @@ Lastly, click "Launch" to create your server. It will take about ~60 seconds for
 
 If you have an existing key pair, use it if you would like. If you do not have one, choose `Create a new key pair` and name it something you would remember. Download the key pair, then click `Launch Instances`'
 
-You can login to your server as root (ubuntu) by running the following command, just change 1.2.3.4 to your server's public IP address:
+After you have downloaded the key pair (pem) file, you will need to chmod it to change it's permissions:
+
+```bash
+# Local Machine (At the folder where you have the keypair file)
+chmod go= myapp.pem
+```
+
+You can login to your server as root (ubuntu) by running the following command, just change `1.2.3.4` to your server's public IP address:
 
 ```bash
 # Local Machine
-ssh ubuntu@1.2.3.4
+ssh -i /path/to/myapp.pem ubuntu@1.2.3.4
 ```
 
 ## Step 6: Creating a Deploy user
@@ -38,24 +45,65 @@ To run software on our server, we're going to create a deploy user. The deploy u
 
 While logged in as ubuntu on the server, we can run the following commands to create the deploy user and add them to the sudo group.
 
+It will show up like this:
+```
+~$ sudo adduser deploy
+Adding user `deploy' ...
+Adding new group `deploy' (1001) ...
+Adding new user `deploy' (1001) with group `deploy' ...
+The home directory `/home/deploy' already exists.  Not copying from `/etc/skel'.
+Changing the user information for deploy
+Enter the new value, or press ENTER for the default
+    Full Name []: 
+    Room Number []: 
+    Work Phone []: 
+    Home Phone []: 
+    Other []: 
+Is the information correct? [Y/n] Y
+```
+You will be asked to type in a password for the user.
+
+Then you want to make the deploy user you just created a superuser.
+
 ```bash
 # ubuntu@1.2.3.4
-adduser deploy
-adduser deploy sudo
-exit
+sudo adduser deploy sudo
 ```
-Next let's add our SSH key to the server to make it faster to login. We're using a tool called ssh-copy-id for this.
 
-If you're on a Mac, you may need to install ssh-copy-id with homebrew first: brew install ssh-copy-id
+Next we will want to copy the authorized_key from the ubuntu user to the deploy user so that we can login with the deploy user. While at it, we also want to add the local machine's key to the server as an authorized_key. You will need to do this for every development machine you have to enable keyless access, otherwise you will have to reference the .pem file to login.
 
 ```bash
 # Local Machine
-ssh-copy-id ubuntu@1.2.3.4
-ssh-copy-id deploy@1.2.3.4
+cat ~/.ssh/id_*.pub | ssh -i /path/to/myapp.pem ubuntu@1.2.3.4 'cat >> .ssh/authorized_keys'
 ```
-Now you can login as either ubuntu or deploy without having to type in a password!
+Now you can login as ubuntu without having to type in a password!
 
-For the rest of this tutorial, we want to be logged in as deploy to setup everything. Let's SSH in as deploy now and we shouldn't be prompted for a password this time.
+Let's do the same with the deploy user.
+```bash
+# ubuntu@1.2.3.4
+cat ~/.ssh/authorized_keys
+```
+Copy the two lines that appear (They should start with ssh-rsa) using Ctrl+Shift+C (Ubuntu) or Command+C (Mac)
+
+```bash
+# ubuntu@1.2.3.4
+sudo su - deploy
+# deploy@1.2.3.4
+nano ~/.ssh/authorized_keys
+```
+Paste (Ctrl+Shift+V or Command-V) the two lines into this file. Exit and save the file by pressing: `Ctrl+X`, `Shift+Y` and press `Enter` when prompted for the filename.
+
+```bash
+# deploy@1.2.3.4
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+```
+
+Double check that the permissions are correct and reset them to what they need to be.
+
+Now, you can either `ssh ubuntu@1.2.3.4` or `ssh deploy@1.2.3.4` without needing a keyfile anymore.
+
+For the rest of this tutorial, we want to be logged in as deploy to setup everything. Let's SSH in as deploy now.
 
 ```bash
 # Local Machine
@@ -117,11 +165,11 @@ The last step is to install Bundler:
 
 ```bash
 # deploy@1.2.3.4
-# This installs the latest Bundler, currently 2.x.
+# This installs the latest Bundler, currently 2.0.2.
 gem install bundler
 # Test and make sure bundler is installed correctly, you should see a version number.
 bundle -v
-# Bundler version 2.0
+# Bundler version 2.0.2
 ```
 If it tells you bundle not found, run rbenv rehash and try again.
 
@@ -153,10 +201,8 @@ We'll start by opening up the Passenger config file in your favorite editor, nan
 # deploy@1.2.3.4
 # If you want to use the Nano for editing
 sudo nano /etc/nginx/conf.d/mod-http-passenger.conf
-# If you want to use the Vim for editing
-sudo vim /etc/nginx/conf.d/mod-http-passenger.conf
 ```
-We simply want to change the passenger_ruby line to match the following:
+We want to change the passenger_ruby line to match the following:
 
 ```bash
 passenger_ruby /home/deploy/.rbenv/shims/ruby;
@@ -167,6 +213,8 @@ Save this file and we'll start NGINX.
 # deploy@1.2.3.4
 sudo service nginx start
 ```
+
+## Testing your NGINX server
 
 You can check and make sure NGINX is running by visiting your server's public IP address in your browser and you should be greeted with the "Welcome to NGINX" message.
 
@@ -232,7 +280,7 @@ And finally, the last command will create a database called `myapp` and make the
 Make sure to change `myapp` to the name of your application.
 
 ```bash
-deploy@1.2.3.4
+# deploy@1.2.3.4
 sudo apt-get install postgresql postgresql-contrib libpq-dev
 sudo su - postgres
 createuser --pwprompt deploy
@@ -240,7 +288,14 @@ createdb -O deploy myapp
 exit
 ```
 
-You can manually connect to your database anytime by running psql -U deploy -W -h 127.0.0.1 -d myapp. Make sure to use 127.0.0.1 when connecting to the database instead of localhost.
+## Testing your SQL
+
+You can manually connect to your database anytime by running `psql -U deploy -W -h 127.0.0.1 -d myapp`. Make sure to use 127.0.0.1 when connecting to the database instead of localhost.
+
+To exit from PSQL, use:
+```sql
+\q
+```
 
 # CHAPTER 5: Deploying Code
 
@@ -265,9 +320,10 @@ Once added, we can run the following to install the gems and have Capistrano ins
 
 ```bash
 # Local Machine
-bundle
-cap install STAGES=production
+bundle install
+bundle exec cap install STAGES=production
 ```
+
 This generates several files for us:
 
 ```
@@ -285,8 +341,11 @@ require 'capistrano/rbenv'
 
 set :rbenv_type, :user
 set :rbenv_ruby, '2.6.3'
-Then we can modify config/deploy.rb to define our application and git repo details.
+```
 
+Then we can modify config/deploy.rb to define our application and git repo details. Again, please change `myapp` to your own app name, and edit the `repo_url` before copying
+
+```
 set :application, "myapp"
 set :repo_url, "git@github.com:username/myapp.git"
 
@@ -300,12 +359,12 @@ set :keep_releases, 5
 
 ```
 
-# Optionally, you can symlink your database.yml and/or secrets.yml file from the shared directory during deploy
-# This is useful if you don't want to use ENV variables
-# append :linked_files, 'config/database.yml', 'config/secrets.yml'
 Now we need to modify config/deploy/production.rb to point to our server's IP address for production deployments. Make sure to replace 1.2.3.4 with your server's public IP.
 
+```ruby
 server '1.2.3.4', user: 'deploy', roles: %w{app db web}
+```
+
 Before we can deploy our app to production, we need to SSH into the server one last time and add our environment variables.
 
 ```bash
@@ -316,17 +375,16 @@ nano /home/deploy/myapp/.rbenv-vars
 ```
 Add any environment variables you need for production to this file.
 
+Please do not copy blindly - edit the `PASSWORD` and `myapp` in the DATABASE_URL to your own password you set earlier when you set up the Database.
+
 ```ruby
 # For Postgres
 DATABASE_URL=postgresql://deploy:PASSWORD@127.0.0.1/myapp
-
 RAILS_MASTER_KEY=ohai
 SECRET_KEY_BASE=1234567890
-
-STRIPE_PUBLIC_KEY=x
-STRIPE_PRIVATE_KEY=y
 # etc...
 ```
+
 Save this file and these environment variables will be automatically loaded every time you run Ruby commands inside your app's directory on the server.
 
 Using this method, we can have separate env variables for every application we deploy to this server.
@@ -335,24 +393,28 @@ Now we can deploy our app to production:
 
 ```bash
 # Local Machine
-cap production deploy
+bundle exec cap production deploy
 ```
 Open your server's IP in your browser and you should be greeted with your Rails application.
 
+
+## Viewing the Server Logs
 If you see an error, you can SSH into the server and view the log files to see what's wrong.
 
 ```bash
-deploy@1.2.3.4
+# deploy@1.2.3.4
 # To view the Rails logs
-less /home/deploy/myapp/current/log/production.log
+nano /home/deploy/myapp/current/log/production.log
 # To view the NGINX and Passenger logs
-sudo less /var/log/nginx/error.log
+sudo nano /var/log/nginx/error.log
 ```
 Once you find your error (often times a missing environment variable or config for production), you can fix it and restart or redeploy your app.
 
 # CHAPTER 6: Congratulations!
 
 Congratulations! You've deployed your app to production.
+
+# POST: Additional Steps
 
 Now you would need to configure SSL and your domain on production.
 
@@ -368,10 +430,58 @@ Add your domain name to server_name in your `/etc/nginx/sites-enabled/myapp` fil
 server {
   ...
 
-  server_name **example.com www.example.com;**;
+  server_name example.com www.example.com;;
 
   ...
 }
 ```
 
 Save the file and then we'll reload NGINX to load the new server files.
+
+## Installing Sidekiq
+
+For this, we will enlist the help of a capistrano plugin
+
+```ruby
+gem 'capistrano-sidekiq'
+```
+
+Once added, we can run the following to install the gem:
+
+```bash
+# Local Machine
+bundle install
+```
+
+We're need to edit the Capfile and add the following line:
+
+```ruby
+require 'capistrano/sidekiq'
+```
+
+Then we can modify config/deploy.rb to add some settings:
+
+```
+set :pty,  false
+set :init_system, :systemd
+set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
+```
+
+You will also need to ssh into the server and use this command:
+
+```bash
+# deploy@1.2.3.4
+loginctl enable-linger deploy
+```
+
+Finally, run this command:
+```bash
+# Local Computer
+bundle exec cap sidekiq:install
+```
+
+Sidekiq should be installed
+
+## Installing an Error Monitoring Service
+
+Sign Up for [Honeybadger](https://www.honeybadger.io/) - Go to pricing, then choose Solo Plan. Set it up.

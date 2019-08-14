@@ -47,3 +47,5 @@ set :rbenv_ruby, '2.6.3'
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
 
 require 'capistrano/honeybadger'
+
+require 'capistrano/sidekiq'
