@@ -1,6 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.action_mailer.default_url_options = { host: 'www.biblichor.site' }
+  config.action_mailer.default_url_options = { host: 'biblichor.site' }
 
 
   # Gmail configuration
@@ -13,7 +13,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
   address:              'smtp.gmail.com',
   port:                 587,
-  domain:               'www.biblichor.site',
+  domain:               'biblichor.site',
   user_name:            Rails.application.credentials.dig(:mailgun, :username),
   password:             Rails.application.credentials.dig(:mailgun, :password),
   authentication:       'plain',
