@@ -42,11 +42,13 @@ class UsersController < ApplicationController
 
     def index
         @user = current_user
-        Book.all.empty? ? nil : books = Book.all.order('created_at DESC')
-        @books = if books.size > 4
-            books[0..3]
-        else
-            books
+        unless Book.all.empty?
+            books = Book.all.order('created_at DESC')
+            if books.size > 4
+                @books = books[0..3]
+            else
+                @books = books
+            end
         end
     end
 
