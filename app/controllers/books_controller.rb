@@ -1,6 +1,18 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
+  # def add_review
+  #     @review = Review.create(review_params)
+  #     @review.reviewer_id = current_user.id
+  #     @review.reviewing_id = params[:id]
+  #     byebug
+  #     if @review.save
+  #       redirect_to(book_path(params[:id]), alert: "added review") and return 
+  #     else
+  #       redirect_to(book_path(params[:id]), alert: "can't add review") and return 
+  #     end
+  # end
+
   def search  
     if params[:search].blank?  
       redirect_to(root_path, alert: "Empty field!") and return  
@@ -34,10 +46,12 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+    if user_signed_in?
+      @review = Review.new
+    end
     @books = Book.all.order('created_at DESC')
     @book= Book.find_by(id: params[:id])
     @owner = User.find_by(id: @book[:owner_id] )
-    
     if @book[:owner_name]== nil
       @book[:owner_name] = @owner.username != nil ? @owner.username : @owner.name
     else
@@ -62,7 +76,6 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     @book.owner_id = current_user.id
 
-    
     @book.owner_name = current_user.username != nil ? current_user.username : current_user.name
     respond_to do |format|
       if @book.save
@@ -134,7 +147,7 @@ class BooksController < ApplicationController
                                   :price,
                                   genre_ids: [])
     end
-
+   
     # def book_exist?(id)
     #   
     #   if !Book.exists?(id)

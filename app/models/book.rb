@@ -1,9 +1,12 @@
 class Book < ApplicationRecord
+    serialize :reviews, Array
     # belongs_to :owner_id
     # belongs_to :renter_id
     # has_many :rate_id
     has_many :book_genres
     has_many :genres, through: :book_genres
+
+    has_many :reviews, through: :users
 
     # FOR IMAGES
     has_one_attached :front_cover
@@ -35,6 +38,17 @@ class Book < ApplicationRecord
         self.genres = names.split(',').map do |n|
             Genre.where(name: n.strip)
         end
+      end
+
+      def self.review(book_id)
+        Review.find_by!(reviewing_id: book_id).reviews
+      end
+    
+      def review=(review)
+        self.review = if self.review.empty?
+          Array.new
+        end
+        self.review << Review.find_by(reviewing_id: book_id)
       end
 
 

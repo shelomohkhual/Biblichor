@@ -53,11 +53,12 @@
               <%= link_to('<li>logout</li>'.html_safe, destroy_user_session_path, class: "fg-color", method: :delete)%>
             </ul>
       </li>
+      <li><a href="<%=cart_path%>" class="fg-color"><i class="far fa-shopping-cart"></i> cart(<%=current_user.cart.size%>)</a></li>
       <% else %>
         <%= link_to('<li>sign in</li>'.html_safe, new_user_session_path, class: "fg-color")%>
         <%= link_to('<li>sign up</li>'.html_safe, new_user_registration_path, class: "fg-color")%>
+        <li><a href="<%=cart_path%>" class="fg-color"><i class="far fa-shopping-cart"></i> cart(0)</a></li>      
       <% end %>
-      <li><a href="<%=cart_path%>" class="fg-color"><i class="far fa-shopping-cart"></i> cart(<%=current_user.cart.size%>)</a></li>
     </ul>
   </div>
 

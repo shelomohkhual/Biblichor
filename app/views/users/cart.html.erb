@@ -55,7 +55,19 @@
                
                 <div class="">
                   <% if book.price != nil && book.price != "" %>
-                    <%= link_to "<span>RM #{book.price}</span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-process" %><%# PRICE-BUTTON %>
+                    <% form_tag(payments_path) do |f|%>
+                      <script
+                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="<%= Rails.application.credentials.dig(:stripe, :publishable_key) %>"
+                        data-name="payment"
+                        data-description="Book: <%= book.title %>"
+                        data-amount="<%=book.price%>"
+                        data-label="RM <%=book.price%>"
+                        data-email="<%=current_user.email%>">
+                      </script>
+                      <% end %>
+                    </form>
+                    <%= link_to "<span>RM #{book.price}</span>".html_safe,new_payment_path(book), class:"btn btn-sm sharp btn-process" %><%# PRICE-BUTTON %>
                   <% else %>
                     <%= link_to "<span> payment </span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-process" %><%# PRICE-BUTTON %>
                   <% end %>

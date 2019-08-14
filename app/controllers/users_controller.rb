@@ -1,20 +1,28 @@
 class UsersController < ApplicationController
     
     def cart
-        @cart= current_user.cart.reverse
+        if user_signed_in?
+            @cart= current_user.cart.reverse
+        else
+            redirect_to(new_user_session_path, alert: "signed first") and return
+        end
     end
 
     def add_cart
-        user = current_user
-        if user.cart.include?(Book.find_by(id: params[:book]))
-            redirect_to(cart_path, notice: "added") and return
-        else
-            user.cart << Book.find_by(id: params[:book])
-            if user.save
-                redirect_to cart_path
+        if user_signed_in?
+            user = current_user
+            if user.cart.include?(Book.find_by(id: params[:book]))
+                redirect_to(cart_path, notice: "added") and return
             else
-                redirect_to(cart_path, alert: "no save") and return
+                user.cart << Book.find_by(id: params[:book])
+                if user.save
+                    redirect_to cart_path
+                else
+                    redirect_to(cart_path, alert: "no save") and return
+                end
             end
+        else
+            redirect_to(new_user_session_path, alert: "signed first") and return
         end
     end
 

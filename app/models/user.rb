@@ -3,6 +3,9 @@ class User < ApplicationRecord
 
   has_many :book
   has_many :rent
+
+  has_many :reviews, through: :users
+
   # profile image
   has_one_attached :image
 

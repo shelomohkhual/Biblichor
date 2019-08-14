@@ -76,8 +76,17 @@ gem 'geocoder'
 
 gem 'searchkick'
 
-gem "administrate"
+# gem "administrate"
 
 gem 'geocoder'
 
 gem "select2-rails"
+
+gem 'cancancan'
+
+gem 'stripe'
+
+gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano-passenger'
+gem 'capistrano-rbenv'

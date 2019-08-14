@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
+
+  resources :payments, :only => [:new, :create]
+
+  # get 'payment#new', as: :new__payment 
+
   get '/genre/:genre', to: 'books#index', as: :genre
   get '/genre/', to: 'books#index', as: :all_genre
+
+ 
 
   namespace :admin do
       resources :users
@@ -10,7 +17,8 @@ Rails.application.routes.draw do
 
   # resources :genres
   resources :books, :except => [:index]
-  
+  resources :reviews, :except => [:create]
+  post '/books/:id', to: 'reviews#create', as: :add_review
   
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations' }
   # devise_for :users, controllers: { registrations: 'users/registrations' }

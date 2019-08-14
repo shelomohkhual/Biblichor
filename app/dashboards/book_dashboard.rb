@@ -23,7 +23,6 @@ class BookDashboard < Administrate::BaseDashboard
     author: Field::String,
     published_date: Field::DateTime,
     description: Field::Text,
-    genre: Field::String,
     front_cover: Field::String,
     back_cover: Field::String,
     features: Field::String,
