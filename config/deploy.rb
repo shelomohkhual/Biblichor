@@ -14,6 +14,7 @@ set :keep_releases, 5
 set :pty,  false
 set :init_system, :systemd
 set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
+set :bundler_path, "/home/deploy/.rbenv/shims/bundler"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
