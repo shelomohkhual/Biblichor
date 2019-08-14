@@ -1,7 +1,7 @@
 # config valid for current version and patch releases of Capistrano
 
 set :application, "biblichor"
-set :repo_url, "git@github.com:shelomohkhual/biblichor.git"
+set :repo_url, "git@github.com:shelomohkhual/Biblichor.git"
 
 # Deploy to the user's home directory
 set :deploy_to, "/home/deploy/#{fetch :application}"
