@@ -113,7 +113,6 @@ ActiveRecord::Schema.define(version: 2019_08_12_164538) do
     t.string "name"
     t.string "username"
     t.string "image"
-    t.text "address"
     t.string "state"
     t.string "city"
     t.integer "zipcode"

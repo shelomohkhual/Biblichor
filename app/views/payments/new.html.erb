@@ -1,18 +1,14 @@
-<%= form_tag new_payment_path do %>
-  <article>
-    <% if flash[:error].present? %>
-      <div id="error_explanation">
-        <p><%= flash[:error] %></p>
-      </div>
-    <% end %>
-    <label class="amount">
-      <span>Amount: $5</span>
-    </label>
-  </article>
-
-  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="<%= Rails.application.credentials.dig(:stripe, :publishable_key) %>"
-          data-description='<%=@book.title%>'
-          data-amount="<%=@book.price%>"
-          data-locale="auto"></script>
-<% end %>
+<script src="https://js.stripe.com/v3/">
+var stripe = Stripe('<%= Rails.application.credentials.dig(:stripe, :stripe_publishable_key) %>');
+stripe.redirectToCheckout({
+  // Make the id field from the Checkout Session creation API response
+  // available to this file, so you can provide it as parameter here
+  // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+  sessionId: '<%= @session[:id]%>'
+}).then(function (result) {
+ console.log(result);
+  // If `redirectToCheckout` fails due to a browser or network
+  // error, display the localized error message to your customer
+  // using `result.error.message`.
+});
+</script>

@@ -63,9 +63,6 @@ class User < ApplicationRecord
     end
   end
 
-  
-
-
     protected
 
     def send_devise_notification(notification, *args)

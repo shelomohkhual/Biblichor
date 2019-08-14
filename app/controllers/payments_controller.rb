@@ -3,26 +3,34 @@ class PaymentsController < ApplicationController
 
 
     def create
-        byebug
-        session = Stripe::Checkout::Session.create(
-            payment_method_types: ['card'],
-            line_items: [{
-              name: 'T-shirt',
-              description: 'Comfortable cotton t-shirt',
-              images: ['https://example.com/t-shirt.png'],
-              amount: 500,
-              currency: 'myr',
-              quantity: 1,
-            }],
-            success_url: 'https://example.com/success',
-            cancel_url: 'https://example.com/cancel',
-          )
+        
     end
     
     
     def new
-        # byebug
-        @book = Book.find_by(id: params[:format])
+      # if !reservation.user.stripe_id.blank?
+      #   customer = Stripe::Customer.retrieve(reservation.user.stripe_id)
+      #   charge = Stripe::Charge.create(
+      #     :customer => customer.id,
+      #     :amount => @book.price * 100,
+      #     :description => @book.title,
+      #     :currency => "myr",
+         
+      #   )
+      Stripe.api_key = Rails.application.credentials.dig(:stripe, :stripe_secret_key)
+      @book = Book.find_by(id: params[:format])
+      @session = Stripe::Checkout::Session.create(
+        payment_method_types: ['card'],
+        line_items: [{
+          name: 'Payment',
+          description: @book.title,
+          amount: 10 * 100,
+          currency: 'myr',
+          quantity: 1,
+        }],
+        success_url: cart_url,
+        cancel_url:  cart_url,
+      )
     end
 
     # def create

@@ -91,3 +91,5 @@ gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano-passenger'
 gem 'capistrano-rbenv'
+
+gem 'honeybadger', '~> 4.0'

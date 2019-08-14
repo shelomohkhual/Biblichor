@@ -69,7 +69,7 @@
                     </form>
                     <%= link_to "<span>RM #{book.price}</span>".html_safe,new_payment_path(book), class:"btn btn-sm sharp btn-process" %><%# PRICE-BUTTON %>
                   <% else %>
-                    <%= link_to "<span> payment </span>".html_safe,book_path(book), class:"btn btn-sm sharp btn-process" %><%# PRICE-BUTTON %>
+                    <%= link_to "<span> #{book.price} </span>".html_safe,new_payment_path(book), class:"btn btn-sm sharp btn-process" %><%# PRICE-BUTTON %>
                   <% end %>
                     <%= link_to "<span> remove </span>".html_safe,remove_cart_path(book),method: :delete, data: { confirm: "removing '#{book.title}' from your cart?" }, class:"btn btn-sm sharp btn-remove" %><%# REMOVE-BUTTON %>
               </div>
