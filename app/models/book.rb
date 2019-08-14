@@ -3,8 +3,9 @@ class Book < ApplicationRecord
     # belongs_to :owner_id
     # belongs_to :renter_id
     # has_many :rate_id
-    has_many :book_genres
-    has_many :genres, through: :book_genres
+    has_many :book_genres, dependent: :destroy
+    has_many :genres, through: :book_genres, dependent: :destroy
+    
 
     has_many :reviews, through: :users
 
@@ -14,7 +15,7 @@ class Book < ApplicationRecord
     has_many_attached :features
 
     # SEARCH-KICK
-    searchkick word_start: [:title, :author, :genres, :description, :owner_name]
+    searchkick word_start: [:title, :authors, :description, :owner_name]
 
     # # FOR UPDATE
     # after_commit :reindex_book
@@ -56,10 +57,8 @@ class Book < ApplicationRecord
         {
         title: title,
         author: author,
-        genres: genres,
         description: description,
         owner_name: owner_name,
-        owner_id: owner_id,
         }
     end
 end

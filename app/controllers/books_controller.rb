@@ -75,7 +75,6 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     @book.owner_id = current_user.id
-
     @book.owner_name = current_user.username != nil ? current_user.username : current_user.name
     respond_to do |format|
       if @book.save
@@ -118,6 +117,8 @@ class BooksController < ApplicationController
   # DELETE /books/1
   # DELETE /books/1.json
   def destroy
+    # @book_genre = BookGenre.find_by(book_id: @book.id)
+    # @book_genre.destroy
     @book.destroy
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Book was successfully destroyed.' }
