@@ -418,10 +418,6 @@ Congratulations! You've deployed your app to production.
 
 Now you would need to configure SSL and your domain on production.
 
-## SSL Configuration
-
-Use [Certbot / Lets Encrypt](https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx) to enable SSL for your site
-
 ## Domain Configuration
 
 Add your domain name to server_name in your `/etc/nginx/sites-enabled/myapp` file:
@@ -430,13 +426,17 @@ Add your domain name to server_name in your `/etc/nginx/sites-enabled/myapp` fil
 server {
   ...
 
-  server_name example.com www.example.com;;
+  server_name example.com;
 
   ...
 }
 ```
 
 Save the file and then we'll reload NGINX to load the new server files.
+
+## SSL Configuration
+
+Use [Certbot / Lets Encrypt](https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx) to enable SSL for your site
 
 ## Installing Sidekiq
 
@@ -453,7 +453,7 @@ Once added, we can run the following to install the gem:
 bundle install
 ```
 
-We're need to edit the Capfile and add the following line:
+We're need to edit the Capfile and add the following line at the bottom:
 
 ```ruby
 require 'capistrano/sidekiq'
@@ -462,16 +462,26 @@ require 'capistrano/sidekiq'
 Then we can modify config/deploy.rb to add some settings:
 
 ```
-set :pty,  false
+set :pty, false
 set :init_system, :systemd
 set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
+set :bundler_path, "/home/deploy/.rbenv/shims/bundler"
 ```
 
-You will also need to ssh into the server and use this command:
+You will also need to ssh into the server and use this command (assuming `deploy` is your username on Ubuntu server):
 
 ```bash
 # deploy@1.2.3.4
 loginctl enable-linger deploy
+```
+
+You will also need to add an environment variable to your `.rbenv-vars`
+```bash
+nano ~/myapp/.rbenv-vars
+```
+and add:
+```bash
+REDIS_URL=redis://localhost:6379
 ```
 
 Finally, run this command:
@@ -480,8 +490,31 @@ Finally, run this command:
 bundle exec cap sidekiq:install
 ```
 
-Sidekiq should be installed
+Sidekiq should be installed and will be restarted upon every deploy.
 
 ## Installing an Error Monitoring Service
 
-Sign Up for [Honeybadger](https://www.honeybadger.io/) - Go to pricing, then choose Solo Plan. Set it up.
+Sign Up for [Honeybadger](https://www.honeybadger.io/) - Go to pricing, then choose Solo Plan. Set it up as per the instructions.
+
+## Setting up Elasticsearch
+
+Go to your AWS Console. Choose `Amazon Elasticsearch Service` under Services.
+
+1. Choose Deployment Type: Development and Testing
+2. Elasticsearch version: 7.1
+3. Elasticsearch domain name: Any name you prefer
+4. Instance type: **t2.small.elasticsearch**
+5. Number of instances: **1**
+6. Choose VPC Access
+7. Under VPC, choose your VPC, Subnet and Security Group based on your EC2's VPC, Subnet and Security Group
+8. Set the domain access policy to: Do not require signing request with IAM Credentials
+
+Click confirm. After the Elasticsearch has provisioned (About 10 minutes) you will find the URL you will need below under VPC Endpoint. You will need to slightly modify this - add a `:443` at the end for the URL below.
+
+For your Searchkick to connect to ElasticSearch you will need to add this file.
+
+Create an initializer `config/initializers/elasticsearch.rb` with:
+
+```ruby
+ENV["ELASTICSEARCH_URL"] = "https://vpc-recode-u4of3mgs3ov72peb7aw5r5c7s4.us-east-1.es.amazonaws.com:443"
+```
