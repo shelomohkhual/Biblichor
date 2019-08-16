@@ -60,3 +60,4 @@ namespace :rake do
         end
       end
     end
+end
