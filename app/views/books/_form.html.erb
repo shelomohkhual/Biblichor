@@ -7,35 +7,14 @@
     <%= f.input :author %>
     <%= f.input :published_date %>
     <%= f.input :description %>
-    <%# <%= f.input :genre_ids, as: :select, collection: Genre.order(:name), label_method: :name, input_html: {multiple: true,class: 'genre-tags'} %> %>
     <%= f.input :genre_ids, input_html: {class: 'genre-tags', multiple: "multiple" }, collection: Genre.order(:name) %> 
-    <%# f.select :genre, ['Action & Adventure',
-                        'Comic',
-                        'Crime',
-                        'Drama',
-                        'Fairytale',
-                        'Fantasy',
-                        'Graphic Novel',
-                        'Historical Fiction',
-                        'Horror',
-                        'Mystery',
-                        'Poetry',
-                        'Romance',
-                        'Science Fiction',
-                        'Short Story',
-                        'Young Adult',
-                        'Religion/Spiritual',
-                        'Health',
-                        'Art',
-                        'Education',
-                        'Selfhelp'], multiple: 'multiple'%>
     <%= f.input :price %>
     <%= f.label :front_cover %>
     <%= f.file_field :front_cover %>
-    <%= f.label :back_cover %>
-    <%= f.file_field :back_cover %>
-    <%= f.label :features %>
-    <%= f.file_field :features, multiple: true %>
+    <%# f.label :back_cover %>
+    <%# f.file_field :back_cover %>
+    <%# f.label :features %>
+    <%# f.file_field :features, multiple: true %>
   </div>
   <br>
   <div class="form-actions text-center">
