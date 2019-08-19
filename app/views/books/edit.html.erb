@@ -13,7 +13,7 @@
             </div>
             <div class="text-right fg-color"> 
             <% if user_signed_in? %>
-                <% if current_user.id == @book.owner_id %>
+                <% if current_user.id == @book.user.id %>
                 <i class="fas fa-book"></i>
                 <%= link_to 'my-books', books_path, class:"fg-color" %>
                 <% end %>
@@ -31,3 +31,14 @@
     
     </div>
 </div>
+
+<script>
+$(document).ready(function() {
+     $(".genre-tags").select2({
+    allowClear: true,
+    tags: true,
+    tokenSeparators: [','],
+    theme: 'bootstrap',
+    placeholder: 'add-genre-tags'
+    }); });
+</script>

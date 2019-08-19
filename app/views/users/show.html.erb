@@ -30,8 +30,6 @@
                             <p class='h5'><strong><%= book.title%></strong></p> <%# TITLE %>
                             <p class="font-italic author"><%=book.author%> <%# AUTHOR %>
                             <br>
-                            Genre: <%= link_to book.genre, class:"genre fg-color" %> <%# GENRE %>
-                            <br>
                             <%# STARS %>
                             <span class="fa fa-star star"></span>
                             <span class="fa fa-star star"></span>
@@ -39,6 +37,7 @@
                             <span class="fa fa-star star"></span>
                             <span class="fa fa-star"></span>
                             </p>
+                            
                         </div>
                         <div>
                             <% if book.price != nil && book.price != '' %>
@@ -63,7 +62,7 @@
     <div class="container ">
         <%# USER NAME %>
         <div class="text-center">
-           <p class="h3 main-color"> <%= @username.capitalize %> </p>
+           <p class="h3 main-color"> <%= @user.username.capitalize %> </p>
         <hr>
         </div>
         

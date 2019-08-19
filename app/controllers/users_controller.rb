@@ -56,14 +56,8 @@ class UsersController < ApplicationController
     
     def show
         @user = User.find_by(id: params[:id])
-        if @user
-            
-            @user_books = Book.all.where(owner_id: @user[:id])
-            if @user.username == nil && @user.name == nil
-                @username = "You Know Who"
-            else 
-                @user.username == nil ? @username = @user.name : @username = @user.username
-            end 
+        if @user     
+            @user_books = Book.all.where(user_id: @user[:id])
         else
             redirect_to(root_path, alert: "No User Found") and return 
         end

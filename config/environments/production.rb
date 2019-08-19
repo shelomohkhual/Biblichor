@@ -108,6 +108,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  ENV["ELASTICSEARCH_URL"] = "https://vpc-biblichor-pvs7kpwkd3lmbfb3brnn3ev5ie.ap-southeast-1.es.amazonaws.com:443"
+
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
   # middleware. The `delay` is used to determine how long to wait after a write

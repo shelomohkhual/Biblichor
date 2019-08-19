@@ -1,1 +1,0 @@
-ENV["ELASTICSEARCH_URL"] = "https://vpc-biblichor-pvs7kpwkd3lmbfb3brnn3ev5ie.ap-southeast-1.es.amazonaws.com:443"

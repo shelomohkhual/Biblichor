@@ -7,3 +7,14 @@
 <%# link_to 'Back', books_path %>
     </div>
 </div>
+
+<script>
+$(document).ready(function() {
+     $(".genre-tags").select2({
+    allowClear: true,
+    tags: true,
+    tokenSeparators: [','],
+    theme: 'bootstrap',
+    placeholder: 'add-genre-tags'
+    }); });
+</script>

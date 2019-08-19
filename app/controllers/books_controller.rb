@@ -5,7 +5,7 @@ class BooksController < ApplicationController
   def search  
     if params[:search].blank?  
       redirect_to(root_path, alert: "Empty field!") and return  
-    elsif Book.all.Empty?
+    elsif Book.all.empty?
       redirect_to(root_path, alert: "Empty DB!") and return  
     else  
         search = params[:search].present? ? params[:search] : nil
@@ -37,20 +37,13 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
-    if user_signed_in?
-      @review = Review.new
-    end
+    # if user_signed_in?
+    #   @review = Review.new
+    # end
     @books = Book.all.order('created_at DESC')
     @book= Book.find_by(id: params[:id])
-    @owner = User.find_by(id: @book[:owner_id] )
-    if @book[:owner_name]== nil
-      @book[:owner_name] = @owner.username != nil ? @owner.username : @owner.name
-    else
-      nil
-    end
-
+    @user = current_user
   end
-
   # GET /books/new
   def new
     @book = Book.new
@@ -64,8 +57,7 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    @book = Book.new(book_params)
-    # @book.user = current_user
+    @book = Book.new(book_params.merge(user_id:current_user.id))
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }

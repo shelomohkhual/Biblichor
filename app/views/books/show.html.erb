@@ -12,7 +12,7 @@
         </div>
         <div class="text-right fg-color"> 
           <% if user_signed_in? %>
-            <% if current_user.id == @book.owner_id %>
+            <% if current_user.id == @book.user.id %>
               <i class="far fa-edit"></i>
               <%= link_to 'Edit', edit_book_path(@book), class:"fg-color" %>
             <% end %>
@@ -26,22 +26,7 @@
 
         <p> <%# OWNER NAME  %>
           <strong>Owner:</strong>
-          <%# if @owner.username == nil && @owner.name == nil %>
-            <%# YouKnowWho %>
-          <%# else %>
-            <%# if @owner.username == nil%>
-              <%#owner_name = @owner.name%>
-            <%# else %>
-             <%# owner_name = @owner.username%> 
-            <%# <% end %>
-            <%# link_to(owner_name,user_path(@owner).html_safe) %>
-          <%# end %>
-
-           <% if @book.owner_name == nil%>
-              YouKnowWho
-          <% else %>
-            <%= link_to(@book.owner_name,user_path(@owner).html_safe) %>
-          <% end %>
+            <%= link_to(@book.user[:username],user_path(@book.user).html_safe) %>
         </p>
         <div class="row"> <%# BOOK DETAILS%>
           <div class="col-4 shadow-md"><%# BOOK FRONT_COVER%>
@@ -101,29 +86,20 @@
       <hr>
       
       <% if user_signed_in? %>
-      <% current_user.username == nil ? @username = current_user.name : @username = current_user.username %>
       <div class="container"><%# RAING SECTION %>
 				<div class="review-block">
 
 					<div class="row"> <%# ONE OF COMMENT%>
 						<div class="col-sm-3 text-right">
                 <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                <div class="review-block-name"><a href="#"><%=@username.capitalize%></a></div>
+                <div class="review-block-name"><a href="#"><%=@user.username.capitalize%></a></div>
                 <div class="review-block-date">time and date</div>
 						</div>
 
             <div class="col-sm-9">
 							<div class="review-block-rate">
  
-            <%= form_for(@review) do |f| %>
-                <div id = “rating-form”> <label> Rating</label> </div>
-                <div class="form-inputs ">
-                  <%= f.text_area :comment, style:'width: 100%;',class:"review-block-description", placeholder:'add review..'%>
-                </div>
-                <div class="form-actions text-right">
-                  <%= f.button :submit %>
-                </div>
-            <% end %>
+            
 
                </div>
             </div>
