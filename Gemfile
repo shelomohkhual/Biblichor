@@ -79,8 +79,6 @@ gem 'searchkick'
 gem 'pundit'
 gem "administrate"
 
-gem 'geocoder'
-
 gem "select2-rails"
 
 gem 'cancancan'
@@ -91,6 +89,7 @@ gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano-passenger'
 gem 'capistrano-rbenv'
+gem 'capistrano-rails-db'
 
 gem 'honeybadger', '~> 4.0'
 

@@ -6,11 +6,11 @@ class CreateBooks < ActiveRecord::Migration[6.0]
       t.date :published_date
       t.text :description
       t.string :genre
-      t.string :front_cover
-      t.string :back_cover
+      t.string :cover
       t.string :features
       t.boolean :renting
-      t.integer :owner_id
+      t.integer :user_id
+      t.decimal :price, :precision => 8, :scale => 2
 
       t.timestamps
     end

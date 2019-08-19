@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
+    before_action :authenticate_user!, only: [:edit, :update, :destroy]
     
     def cart
         if user_signed_in?
             @cart= current_user.cart.reverse
         else
-            redirect_to(new_user_session_path, alert: "signed first") and return
+            @cart=[]
+            # redirect_to(new_user_session_path, alert: "signed first") and return
         end
     end
 
@@ -51,20 +53,7 @@ class UsersController < ApplicationController
             end
         end
     end
-
-    # def search  
-    #     if params[:search].blank?  
-    #       redirect_to(root_path, alert: "Empty field!") and return  
-    #     else  
-    #         search = params[:term].present? ? params[:term] : nil
-    #         @search_result = if search
-    #             User.search(search)
-    #         else
-    #             User.all
-    #         end
-    #     end
-    # end  
-
+    
     def show
         @user = User.find_by(id: params[:id])
         if @user

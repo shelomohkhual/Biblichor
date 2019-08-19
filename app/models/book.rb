@@ -1,21 +1,19 @@
 class Book < ApplicationRecord
-    serialize :reviews, Array
-    # belongs_to :owner_id
-    # belongs_to :renter_id
-    # has_many :rate_id
+    
+    belongs_to :user
+    # reviews
+    has_many :reviews
+    has_many :users, through: :reviews
+    # Book_generes
     has_many :book_genres, dependent: :destroy
     has_many :genres, through: :book_genres, dependent: :destroy
-    
-
-    has_many :reviews, through: :users
-
     # FOR IMAGES
     has_one_attached :front_cover
     has_one_attached :back_cover
     has_many_attached :features
 
     # SEARCH-KICK
-    searchkick word_start: [:title, :authors, :description, :owner_name]
+    searchkick word_start: [:title, :author, :description]
 
     # # FOR UPDATE
     # after_commit :reindex_book
@@ -57,8 +55,7 @@ class Book < ApplicationRecord
         {
         title: title,
         author: author,
-        description: description,
-        owner_name: owner_name,
+        description: description
         }
     end
 end

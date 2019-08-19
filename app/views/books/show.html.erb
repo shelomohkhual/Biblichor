@@ -116,6 +116,7 @@
 							<div class="review-block-rate">
  
             <%= form_for(@review) do |f| %>
+                <div id = “rating-form”> <label> Rating</label> </div>
                 <div class="form-inputs ">
                   <%= f.text_area :comment, style:'width: 100%;',class:"review-block-description", placeholder:'add review..'%>
                 </div>
@@ -220,3 +221,11 @@
 
   </div>
 </div>
+
+<%# SCRIPT %>
+<script>
+$(‘#rating-form’).raty({
+path: ‘/assets/’,
+scoreName: review[rating]’
+});
+</script>

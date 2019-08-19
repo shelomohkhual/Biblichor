@@ -1,21 +1,12 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
-
-  # def add_review
-  #     @review = Review.create(review_params)
-  #     @review.reviewer_id = current_user.id
-  #     @review.reviewing_id = params[:id]
-  #     byebug
-  #     if @review.save
-  #       redirect_to(book_path(params[:id]), alert: "added review") and return 
-  #     else
-  #       redirect_to(book_path(params[:id]), alert: "can't add review") and return 
-  #     end
-  # end
+  before_action :authenticate_user!, except: [:show]
 
   def search  
     if params[:search].blank?  
       redirect_to(root_path, alert: "Empty field!") and return  
+    elsif Book.all.Empty?
+      redirect_to(root_path, alert: "Empty DB!") and return  
     else  
         search = params[:search].present? ? params[:search] : nil
         @search_result = if search
@@ -74,8 +65,7 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(book_params)
-    @book.owner_id = current_user.id
-    @book.owner_name = current_user.username != nil ? current_user.username : current_user.name
+    # @book.user = current_user
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
@@ -149,16 +139,6 @@ class BooksController < ApplicationController
                                   genre_ids: [])
     end
    
-    # def book_exist?(id)
-    #   
-    #   if !Book.exists?(id)
-    #     # render :root_path
-    #     redirect_to books_path
-
-    #     
-    #   end
-    # end
-
     
 
 end
