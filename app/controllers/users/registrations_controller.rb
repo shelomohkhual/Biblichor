@@ -11,9 +11,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super
-      # UserMailer.welcome_email(@user).deliver_later
-      # byebug
+    if params[:username] == nil
+      redirect_to(new_user_registration_path, alert: "Username empty field!") and return  
+    else
+      super
+        UserMailer.welcome_email(@user).deliver_later
+    end
   end
   
 
@@ -26,6 +29,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def update
     super
     # byebug
+    @user.username = params[:user][:username]
     @user.image = params[:user][:image]
     @user.save
     

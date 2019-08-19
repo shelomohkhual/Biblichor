@@ -51,7 +51,7 @@
                     </small>
                     <% end %>
                 </div>
-                <div class="fg-color">owner: <%= link_to(book.owner_name,user_path(book.owner_id).html_safe) %></div><%# owner %>
+                <div class="fg-color">owner: <%= link_to(book.user[:username],user_path(book.user).html_safe) %></div><%# owner %>
                
                 <div class="">
                   <% if book.price != nil && book.price != "" %>

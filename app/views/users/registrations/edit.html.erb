@@ -34,6 +34,8 @@
         <br>
         <p class='fg-color'>Avatar: <%= f.file_field :image %></p>
 
+        <%= f.input :username, required: true, autofocus: true %>
+        
         <%= f.input :email, required: true, autofocus: true %>
 
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
