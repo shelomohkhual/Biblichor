@@ -2,8 +2,7 @@ class Book < ApplicationRecord
     
     belongs_to :user
     # reviews
-    # has_many :reviews
-    # has_many :users, through: :reviews
+    has_many :reviews
     # Book_generes
     has_many :book_genres, dependent: :destroy
     has_many :genres, through: :book_genres, dependent: :destroy
