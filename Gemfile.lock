@@ -244,7 +244,7 @@ GEM
     orm_adapter (0.5.0)
     pg (1.1.4)
     public_suffix (3.1.1)
-    puma (3.12.1)
+    puma (3.12.2)
     pundit (2.0.1)
       activesupport (>= 3.0.0)
     rack (2.0.7)
@@ -407,7 +407,7 @@ DEPENDENCIES
   omniauth
   omniauth-facebook
   pg (>= 0.18, < 2.0)
-  puma (~> 3.11)
+  puma (~> 3.12)
   pundit
   rails (~> 6.0.0.rc2)
   sass-rails (~> 5)
